@@ -1,4 +1,4 @@
-import { Dialog, Transition } from "@headlessui/react";
+//import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, ReactNode } from "react";
 
 interface Props {
@@ -19,7 +19,8 @@ export default function WrapUnwrapModal({
   onClick,
 }: Props) {
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <></>
+/*     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10 w-full" onClose={closeModal}>
         <Transition.Child
           as={Fragment}
@@ -51,7 +52,7 @@ export default function WrapUnwrapModal({
                   {title}
                 </h3>
 
-                {/* Modal body */}
+          
                 <div className="px-8 py-8 w-full flex flex-col gap-6">
                   {children}
                   <button
@@ -68,6 +69,6 @@ export default function WrapUnwrapModal({
           </div>
         </div>
       </Dialog>
-    </Transition>
+    </Transition> */
   );
 }

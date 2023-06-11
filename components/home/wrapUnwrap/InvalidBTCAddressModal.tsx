@@ -1,6 +1,6 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
-import { XMarkIcon } from "@heroicons/react/24/solid";
+//import { Dialog, Transition } from "@headlessui/react";
+//import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
+//import { XMarkIcon } from "@heroicons/react/24/solid";
 import React, { Fragment } from "react";
 
 interface Props {
@@ -17,7 +17,8 @@ const InvalidBTCAddressModal = ({ isOpen, setIsOpen }: Props) => {
   // 17VZNX1SN5NtKa8UQFxwQbFeFc3iqRYhem
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <></>
+/*     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
         <Transition.Child
           as={Fragment}
@@ -67,7 +68,7 @@ const InvalidBTCAddressModal = ({ isOpen, setIsOpen }: Props) => {
           </div>
         </div>
       </Dialog>
-    </Transition>
+    </Transition> */
   );
 };
 

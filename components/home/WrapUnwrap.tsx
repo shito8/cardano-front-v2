@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import styles from "../../styles/wrapUnwrap.module.scss"
 import InvalidBTCAddressModal from "./wrapUnwrap/InvalidBTCAddressModal";
 import Unwrap from "./wrapUnwrap/Unwrap";
@@ -14,16 +14,15 @@ const WrapUnwrap = () => {
       <div className={styles.options}>
           <div className={styles.item}>
             {["Wrap", "Unwrap"].map((value: string) => (
-              <>
+              <Fragment key={value}>
                 <p
-                  key={value}
                   onClick={() => setTabName(value)}
                   className={styles.selection}
                 >
                   {value}
                 </p>
                 <span className={`${styles.select} ${tabName !== "Wrap" ? `${styles.active}`:""}`}></span>
-              </>
+              </Fragment>
             ))}
           </div>
       </div>

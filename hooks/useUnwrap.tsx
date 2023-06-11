@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../components/GlobalContext";
 import useLucid from "./useLucid";
 import { useTryCatch } from "./useTryCatch";
+import { validate } from 'multicoin-address-validator';
 
 export enum UnwrapStage {
   NotStart,
@@ -33,12 +34,17 @@ export default function useUnwrap() {
   }, [unwrapFeeBtc, amount]);
 
   const unwrap = async () => {
+    const validAdrres = validate(unwrapBtcDestination, 'BTC', 'testnet');
     await tryWithErrorHandler(async () => {
-      setIsLoading(true);
       const amountNumber = Number(amount);
-      if (isNaN(amountNumber) || amountNumber <= 0) {
+/*       if (isNaN(amountNumber) || amountNumber <= 0) {
         throw new Error(
           "Unwrap amount is invalid. It should be a number greater than 0"
+        );
+      } */
+      if (!validAdrres) {
+        throw new Error(
+          "Please enter a valid BTC Destination Address"
         );
       }
 

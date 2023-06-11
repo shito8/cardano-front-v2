@@ -143,12 +143,12 @@ const Unwrap = () => {
       {
         walletMeta ? (
           <button
-          disabled={!Boolean(amount)||checkInput}
+          disabled={!Boolean(amount)||checkInput||unwrapBtcDestination === ""}
           onClick={unwrap}
           className={styles.wrapBtn}
         >
           {isLoading ? <ButtonLoader /> : null}
-          {amount ? (checkInput ? "Invalid amount" : "Unwrap cBTC") : "Enter an amount"}
+          {amount ? (checkInput ? "Invalid amount" : (unwrapBtcDestination === "" ? "Enter an address" : "Unwrap cBTC")) : "Enter an amount"}
         </button>
         ):(
           <>

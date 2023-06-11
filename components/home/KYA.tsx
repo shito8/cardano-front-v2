@@ -1,5 +1,5 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/solid";
+//import { Dialog, Transition } from "@headlessui/react";
+//import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Fragment, useEffect, useState } from "react";
 
 interface Props {
@@ -21,8 +21,8 @@ const KYA = ({ isOpen, setIsOpen }: Props) => {
     <>
       {kyaApproved ? (
         ""
-      ) : (
-        <Transition appear show={isOpen} as={Fragment}>
+      ) : ( <></>
+/*         <Transition appear show={isOpen} as={Fragment}>
           <Dialog
             as="div"
             className="relative z-20 font-nunito-sans"
@@ -101,7 +101,7 @@ const KYA = ({ isOpen, setIsOpen }: Props) => {
               </div>
             </div>
           </Dialog>
-        </Transition>
+        </Transition> */
       )}
     </>
   );
