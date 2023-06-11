@@ -1,0 +1,60 @@
+@use "./variables.scss" as var;
+
+.main{
+  height: 80px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .logo{
+    display: flex;
+    align-items: center;
+  }
+  .nav{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    .connectWallet{
+      @include var.btn-header();
+      padding: 5px;
+      width: 200px;
+      background-color: var.$background-color-light;
+      font-weight: var.$font-weight-semibold;
+      p{
+        background-color: var.$primary-color-light;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    }
+    .setting{
+      @include var.btn-header();
+      background-color: var.$background-color-light;
+      width: 40px;
+      position: relative;
+      svg{
+          cursor: pointer;
+      }
+    }
+  }
+}
+
+:global(body.dark){
+  .main{
+    .nav{
+      .connectWallet{
+        background-color: var.$background-color-dark;
+        p{
+            background-color: var.$primary-color-dark;
+        }
+      }
+      .setting{
+        background-color: var.$background-color-dark;     
+      }
+    }
+  }
+}

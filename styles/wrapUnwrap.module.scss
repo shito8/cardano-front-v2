@@ -1,0 +1,202 @@
+@use "./variables.scss" as var;
+
+.wrapUnwrap{
+  width: 570px;
+  background-color: var.$background-color-light;
+  position: absolute;
+  left: calc(((100% + 200px ) - 570px)/2);
+  border-radius: 20px;
+  padding: 20px;
+  @media (max-width: 1400px){
+    left: calc(((100% + 350px ) - 570px)/2);
+  }
+  &.wrap{
+    top: calc((100vh - 567px)/2);
+    @media (max-height: 767px){
+      top: 100px;
+    }
+  }
+  &.unwrap{
+    top: calc((100vh - 680px)/2);
+    @media (max-height: 880px){
+      top: 100px;
+    }
+  }
+
+
+  .options{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    background-color: var.$light-color;
+    .item{
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      width: 100%;
+      .selection{
+        height: 100%;
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+        font-weight: var.$font-weight-semibold;
+      }
+      .select{
+        position: absolute;
+        top: 0;
+        width: 50%;
+        height: 100%;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.5s ease-in-out;
+        transform: translateX(0%);
+        background-color: var.$primary-color-light;
+        &.active{
+          transform: translateX(100%);
+
+        }
+      }
+    }
+  }
+
+
+  .menu{
+    width: 100%;
+    .title{
+      margin: 20px 0;
+      text-align: center;
+      color: #575757;
+    }
+    .inputAmount{
+      position: relative;
+      input{
+        padding: 0 20px;
+        width: 100%;
+        height: 100px;
+        border-radius: 12px;
+        background-color: var.$secondary-color-light;
+        font-size: 40px;
+        font-weight: var.$font-weight-semibold;
+        color: var.$primary-color-input;
+      }
+      .token{
+        position: absolute;
+        top: 34px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        right: 20px;
+        align-items: flex-end;
+      }
+      .tokenName{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        p{
+          font-size: 24px;
+          font-weight: var.$font-weight-semibold;
+        }
+      }
+      .warning{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        padding: 4px 0 10px 10px;
+        gap: 10px;
+        :global(svg#icon){
+          use{
+            fill: #DD524C;
+          }
+        }
+
+        p{
+          font-size: 14px;
+          color: #DD524C;
+          font-weight: var.$font-weight-semibold;
+        }
+      }
+    }
+  }
+  .sectionFee{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    padding: 0 20px;
+    //margin-bottom: 20px;
+    .title{
+      font-weight: var.$font-weight-semibold;
+      font-size: 18px;
+    }
+    .token{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      p{
+        font-size: 18px;;
+        font-weight: var.$font-weight-semibold;
+      }
+    }
+  }
+  .wrapBtn{
+    @include var.btn-main();
+    background-color: var.$primary-color-light;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    &:hover{
+      background-color: var.$light-color-hover;
+    }
+    &:disabled{
+      background-color: var.$light-color-disable;
+      cursor: not-allowed;
+    }
+  }
+}
+
+
+
+
+:global(body.dark){
+
+  .wrapUnwrap{
+    background-color: var.$background-color-dark;
+    .options{
+      background-color: var.$dark-color;
+      .select{
+        background-color: var.$primary-color-dark;
+      }
+    }
+    .menu{
+      .title{
+        color: #CACACA;
+      }
+      .inputAmount{
+        input{
+          background-color: var.$secondary-color-dark;
+          color: var.$secundary-color-font;
+        }
+      }
+    }
+    .wrapBtn{
+      background-color: var.$primary-color-dark;
+      &:hover{
+        background-color: var.$dark-color-hover;
+      }
+      &:disabled{
+        background-color: var.$dark-color-disable;
+      }
+    }
+  }
+
+
+
+}
