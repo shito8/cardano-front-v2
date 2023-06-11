@@ -82,7 +82,7 @@ const Wrap = () => {
             </svg>
             <p>You can mint a minimum of 0.001 BTC.</p>
           </div>
-        ):('')}
+        ):(undefined)}
       </div>
       {/* fee */}
       <section className={styles.sectionFee}>
@@ -113,13 +113,13 @@ const Wrap = () => {
         walletMeta ? (
         
       <button
-        disabled={!Boolean(amount)}
+        disabled={!Boolean(amount)||checkInput}
         onClick={wrap}
         className={styles.wrapBtn}
       >
         {isLoading ? <ButtonLoader /> : null}
 
-        {amount ? "Wrap BTC" : "Enter an amount"}
+        {amount ? (checkInput ? "Invalid amount" : "Wrap BTC") : "Enter an amount"}
       </button>
         ) : (
           <>

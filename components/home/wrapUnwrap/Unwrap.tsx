@@ -1,10 +1,10 @@
-import Image from "next/image";
-//import { Fragment } from "react";
+import { useState, useEffect } from "react";
 import useUnwrap, { UnwrapStage } from "../../../hooks/useUnwrap";
-//import styles from "../../../styles/home/WrapUnwrap.module.css";
 import styles from "../../../styles/wrapUnwrap.module.scss"
 import ButtonLoader from "../../partials/loader/ButtonLoader";
 import UnwrapSuccessful from "./unwrap/UnwrapSuccessful";
+import useCardanoWallet from "../../../hooks/useCardanoWallet";
+import ConnectWallet from "../../partials/navbar/ConnectWallet";
 
 const Unwrap = () => {
   const {
@@ -22,6 +22,38 @@ const Unwrap = () => {
     setUnwrapStage,
   } = useUnwrap();
 
+  const { walletMeta } = useCardanoWallet();
+  const [isWalletShowing, setIsWalletShowing] = useState(false);
+
+  const [checkInput, setCheckInput] = useState<boolean>(false);
+
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const regex = /^[0-9]-?\d*\.?\d{0,8}$/;
+    if ((regex.test(value) || value === "") && value.length < 12){
+      setAmount(value);
+    }
+    parseFloat(value)<0.001 ? setCheckInput(true) : setCheckInput(false)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if(e.key === '+' || e.key === '-' || e.key === 'ArrowUp' || e.key === 'ArrowDown'){
+      e.preventDefault();
+    }
+  }
+
+  const handleWhell = (e: WheelEvent) => {
+    e.preventDefault();
+  }
+
+  useEffect(() => {
+    const inputElement = document.querySelector('input');
+    inputElement?.addEventListener('wheel',  handleWhell,  {passive: false});
+    return () => {
+      inputElement?.removeEventListener('wheel',  handleWhell);
+    }
+  },[])
+
   return (
     <section className={styles.menu}>
       <p className={styles.title}>Redeem BTC</p>
@@ -31,95 +63,110 @@ const Unwrap = () => {
         <input
           placeholder="0"
           value={amount}
-          onChange={(e) => setAmount(e.target.value)}
           type="number"
-          inputMode="text"
-          className={styles.amountInput}
+          onChange={handleValueChange}
+          onKeyDown={handleKeyDown}
         />
-        <div className="absolute right-6">
-          <div className="flex items-center gap-2">
-            <Image
-              src={"/images/logo/bitcoin-blue.png"}
-              alt="Bitcoin blue image"
-              width={25}
-              height={25}
-            />
+        <div className={styles.token}>
+          <div className={styles.tokenName}>
+            <svg width="30" height="30" id='icon' >
+                <use href='/images/crypto/cbtc-logo.svg#Layer_1'></use>
+              </svg>
+              <p>cBTC</p>
           </div>
         </div>
+        {checkInput ? (
+          <div className={styles.warning}>
+            <svg width="14" height="14" id='icon' >
+              <use href='/images/icons/exclamation-circle-fill.svg#icon'></use>
+            </svg>
+            <p>You can redeem a minimum of 0.001 BTC.</p>
+          </div>
+        ):(undefined)}
       </div>
 
       {/* source address  */}
-      <div>
+      <div className={styles.inputAddress}>
         <input
           value={unwrapBtcDestination}
           onChange={(e) => setUnwrapBtcDestination(e.target.value)}
           type="text"
           placeholder="Enter your BTC address"
-          className="w-full text-gray-300 bg-primary-mid-dark-color p-4 rounded-lg outline-none mt-1"
           required
         />
       </div>
 
       {/* fee */}
-      <div className="flex items-center justify-between px-2">
-        <p className=" font-semibold">Bridge Fee ({unwrapFeeBtc}%)</p>
+      <div className={styles.sectionFee}>
+        <p className={styles.title}>Bridge Fee ({unwrapFeeBtc}%)</p>
         <div>
-          <div className="flex items-center gap-2 text-lg">
-            {bridgeFee}
-            <h2 className="font-medium font-nunito-sans">cBTC</h2>
-            <Image
-              src={"/images/logo/bitcoin-blue.png"}
-              alt="Bitcoin"
-              height={25}
-              width={25}
-            />
+          <div className={styles.token}>
+            <p>{bridgeFee.toFixed(8).replace(/\.?0+$/, '')}</p>
+            <p>cBTC</p>
+            <svg width="30" height="30" id='icon' >
+              <use href='/images/crypto/cbtc-logo.svg#Layer_1'></use>
+            </svg>
           </div>
         </div>
       </div>
 
       {/* fee */}
-      <div className="flex items-center justify-between px-2">
-        <p className=" font-semibold">Cardano Transaction Fee</p>
+      <div className={styles.sectionFee}>
+        <p className={styles.title}>Cardano Transaction Fee</p>
         <div>
-          <div className="flex items-center gap-2 text-lg">
-            {unwrapFeeCardano}
-            <h2 className="font-medium font-nunito-sans">ADA</h2>
-            <Image
-              src={"/images/logo/star.png"}
-              alt="Bitcoin"
-              height={25}
-              width={25}
-            />
+          <div className={styles.token}>
+            <p>{unwrapFeeCardano}</p>
+            <p>ADA</p>
+            <svg width="30" height="30" id='icon' >
+              <use href='/images/crypto/cardano-logo.svg#Layer_1'></use>
+            </svg>
           </div>
         </div>
       </div>
 
       {/* my receive amount  */}
 
-      <div className="flex items-center justify-between px-2">
-        <p className=" font-semibold">You Will Receive</p>
+      <div className={styles.sectionFee}>
+        <p className={styles.title}>You Will Receive</p>
         <div>
-          <div className="flex items-center gap-2 text-lg">
-            <p className=" opacity-80">{btcToBeReceived}</p>
-            <h2 className="font-medium font-nunito-sans">BTC</h2>
-            <Image
-              src={"/images/logo/bitcoin.png"}
-              alt="Bitcoin Image for Receiving amount"
-              height={25}
-              width={25}
-            />
+          <div className={styles.token}>
+            <p>{btcToBeReceived.toFixed(8).replace(/\.?0+$/, '')}</p>
+            <p>BTC</p>
+            <svg width="30" height="30" id='icon' >
+              <use href='/images/crypto/bitcoin-logo.svg#Layer_1'></use>
+            </svg>
           </div>
         </div>
       </div>
       {/* final button  */}
-      <button
-        disabled={!Boolean(amount)}
-        onClick={unwrap}
-        className={styles.wrapBtc}
-      >
-        {isLoading ? <ButtonLoader /> : null}
-        {amount ? "Unwrap cBTC" : "Enter an amount"}
-      </button>
+
+      {
+        walletMeta ? (
+          <button
+          disabled={!Boolean(amount)||checkInput}
+          onClick={unwrap}
+          className={styles.wrapBtn}
+        >
+          {isLoading ? <ButtonLoader /> : null}
+          {amount ? (checkInput ? "Invalid amount" : "Unwrap cBTC") : "Enter an amount"}
+        </button>
+        ):(
+          <>
+          <button className={styles.wrapBtn}
+          onClick={() =>
+            isWalletShowing
+              ? setIsWalletShowing(false)
+              : setIsWalletShowing(true)
+          }>Connect Wallet</button>
+          <ConnectWallet
+            isOpen={isWalletShowing}
+            setIsOpen={setIsWalletShowing}
+          />
+        </>
+        )
+      }
+
+
 
       {/* success modal  */}
       <UnwrapSuccessful

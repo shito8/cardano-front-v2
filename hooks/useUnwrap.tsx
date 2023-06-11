@@ -19,6 +19,7 @@ export default function useUnwrap() {
   const [amount, setAmount] = useState<string>("");
   const [unwrapBtcDestination, setUnwrapBtcDestination] = useState("");
   const [bridgeFee, setBridgeFee] = useState(0);
+  const [btcToBeReceived, setBtcToBeReceived] = useState(0);
   const [isTxSuccessful, setIsTxSuccessful] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [unwrapStage, setUnwrapStage] = useState<UnwrapStage>(
@@ -26,8 +27,9 @@ export default function useUnwrap() {
   );
 
   useEffect(() => {
-    const fee = unwrapFeeBtc * 0.01 * Number(amount);
+    const fee = unwrapFeeBtc / 100 * Number(amount);
     setBridgeFee(fee);
+    setBtcToBeReceived(Number(amount) - fee);
   }, [unwrapFeeBtc, amount]);
 
   const unwrap = async () => {
@@ -55,7 +57,7 @@ export default function useUnwrap() {
     unwrapFeeBtc,
     unwrapFeeCardano,
     bridgeFee,
-    btcToBeReceived: Number(amount) - bridgeFee,
+    btcToBeReceived,
     unwrapBtcDestination,
     isTxSuccessful,
     setAmount,
