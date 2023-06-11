@@ -1,5 +1,5 @@
 {
-  "name": "wtfaustin",
+  "name": "anetawraping",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+  },
+  "engines": {
+    "node": "^14"
   },
   "dependencies": {
     "@cardano-sdk/cip30": "^0.5.0",
