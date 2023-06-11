@@ -57,7 +57,7 @@ const ConnectWallet = ({ isOpen, setIsOpen }: Props) => {
                   </svg>
               </header>
               <div className={styles.walletsList}>
-              {cardanoWallets.map((wallet: Cip30Wallet, i: number) =>
+              {cardanoWallets.map((wallet: /* Cip30Wallet */ any, i: number) =>
                       wallet?.name && wallet?.icon ? (
                         <div
                           key={i}
