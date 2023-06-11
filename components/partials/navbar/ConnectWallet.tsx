@@ -1,4 +1,4 @@
-import { Cip30Wallet } from "@cardano-sdk/cip30";
+//import { Cip30Wallet } from "@cardano-sdk/cip30";
 import { useEffect, useState } from "react";
 import useCardanoWallet from "../../../hooks/useCardanoWallet";
 import styles from "../../../styles/connectWallet.module.scss"
@@ -12,7 +12,7 @@ interface Props {
 
 const ConnectWallet = ({ isOpen, setIsOpen }: Props) => {
   const { connectWallet } = useCardanoWallet();
-  const [cardanoWallets, setCardanoWallets] = useState<Cip30Wallet[]>([]);
+  const [cardanoWallets, setCardanoWallets] = useState<any[]>([]);
 
   const handleConnectWallet = (cardanoWalletName: string) => {
     setIsOpen(false);

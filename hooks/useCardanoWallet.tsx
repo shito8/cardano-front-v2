@@ -1,4 +1,4 @@
-import { Cip30Wallet } from "@cardano-sdk/cip30";
+//import { Cip30Wallet } from "@cardano-sdk/cip30";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../components/GlobalContext";
 import { doesAddressMatchNetwork, shortenAddress } from "../utils/address";
@@ -37,7 +37,7 @@ export default function useCardanoWallet() {
 
       const cardanoWallet = window.cardano[
         cardanoWalletName.toLowerCase()
-      ] as unknown as Cip30Wallet;
+      ] /* as unknown as Cip30Wallet */ as any;
       const walletApi = await cardanoWallet.enable();
 
       globalContext.setWalletMeta(cardanoWallet);
