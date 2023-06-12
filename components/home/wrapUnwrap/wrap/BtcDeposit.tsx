@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Fragment, useState } from "react";
 import BtcDepositSent from "./BtcDepositReceivedSuccess";
 
+// POSIBLE A ELIMIMAR
 interface Props {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;

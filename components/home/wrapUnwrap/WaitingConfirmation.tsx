@@ -4,6 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import React, { Fragment } from "react";
 import Notifications from "./Notifications";
 
+// POSIBLE A ELIMIMAR
 interface Props {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;

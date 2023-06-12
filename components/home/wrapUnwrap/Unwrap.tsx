@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import useUnwrap, { UnwrapStage } from "../../../hooks/useUnwrap";
 import styles from "../../../styles/wrapUnwrap.module.scss"
-//import ButtonLoader from "../../partials/loader/ButtonLoader";
 import UnwrapSuccessful from "./unwrap/UnwrapSuccessful";
 import useCardanoWallet from "../../../hooks/useCardanoWallet";
 import ConnectWallet from "../../partials/navbar/ConnectWallet";
@@ -176,6 +175,7 @@ const Unwrap = () => {
         unwrapBtcDestination={unwrapBtcDestination}
         onClick={() => setUnwrapStage(UnwrapStage.NotStart)}
         onClose={() => setUnwrapStage(UnwrapStage.NotStart)}
+        resetAmount={()=>setAmount("")}
       ></UnwrapSuccessful>
     </section>
   );

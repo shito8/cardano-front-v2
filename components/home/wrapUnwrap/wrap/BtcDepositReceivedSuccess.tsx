@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { Fragment } from "react";
 
+// POSIBLE A ELIMIMAR
 interface Props {
   isOpen: boolean;
   closeAll: any;
