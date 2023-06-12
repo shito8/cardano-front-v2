@@ -147,7 +147,7 @@ const Unwrap = () => {
           onClick={unwrap}
           className={styles.wrapBtn}
         >
-          {isLoading ? <ButtonLoader /> : null}
+          {isLoading ? (<div className={styles.loader}></div>):(undefined)}
           {amount ? (checkInput ? "Invalid amount" : (unwrapBtcDestination === "" ? "Enter an address" : "Unwrap cBTC")) : "Enter an amount"}
         </button>
         ):(

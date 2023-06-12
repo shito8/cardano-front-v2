@@ -42,7 +42,9 @@ export default function useUnwrap() {
           "Unwrap amount is invalid. It should be a number greater than 0"
         );
       } */
+      setIsLoading(true);
       if (!validAdrres) {
+        setIsLoading(false);
         throw new Error(
           "Please enter a valid BTC Destination Address"
         );
@@ -53,7 +55,11 @@ export default function useUnwrap() {
         btcAddress: unwrapBtcDestination,
       });
 
-      setUnwrapStage(UnwrapStage.Success);
+
+
+        setUnwrapStage(UnwrapStage.Success);
+
+
     });
     setIsLoading(false);
   };
