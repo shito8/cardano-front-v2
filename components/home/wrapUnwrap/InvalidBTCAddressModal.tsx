@@ -3,6 +3,8 @@
 //import { XMarkIcon } from "@heroicons/react/24/solid";
 import React, { Fragment } from "react";
 
+// POSIBLE A ELIMIMAR
+
 interface Props {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
@@ -12,6 +14,7 @@ const InvalidBTCAddressModal = ({ isOpen, setIsOpen }: Props) => {
   const closeModal = () => {
     setIsOpen(true);
   };
+
 
   // valid btc address example. use this or any valid btc address on BTC address field to avoid the error
   // 17VZNX1SN5NtKa8UQFxwQbFeFc3iqRYhem

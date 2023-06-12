@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import useWrap, { WrapStage } from "../../../hooks/useWrap";
 import styles from "../../../styles/wrapUnwrap.module.scss"
-import ButtonLoader from "../../partials/loader/ButtonLoader";
-import DepositSentModal from "./wrap/DepositSentModal";
+//import ButtonLoader from "../../partials/loader/ButtonLoader";
+import DepositConfirmModal from "./wrap/DepositConfirmModal";
 import SendDepositModal from "./wrap/SendDepositModal";
 import useCardanoWallet from "../../../hooks/useCardanoWallet";
 import ConnectWallet from "../../partials/navbar/ConnectWallet";
@@ -117,7 +117,7 @@ const Wrap = () => {
         onClick={wrap}
         className={styles.wrapBtn}
       >
-        {isLoading ? <ButtonLoader /> : null}
+        {isLoading ? (<div className={styles.loader}></div>):(undefined)}
 
         {amount ? (checkInput ? "Invalid amount" : "Wrap BTC") : "Enter an amount"}
       </button>
@@ -144,13 +144,14 @@ const Wrap = () => {
         onClick={() => setWrapStage(WrapStage.Sent)}
         onClose={() => setWrapStage(WrapStage.NotStarted)}
       ></SendDepositModal>
-      <DepositSentModal
+      <DepositConfirmModal
         isOpen={wrapStage === WrapStage.Sent}
         amount={amount}
         amountToReceive={btcToBeReceived.toString()}
         onClick={() => setWrapStage(WrapStage.NotStarted)}
         onClose={() => setWrapStage(WrapStage.NotStarted)}
-      ></DepositSentModal>
+        resetAmount={()=>setAmount("")}
+      ></DepositConfirmModal>
     </section>
   );
 };

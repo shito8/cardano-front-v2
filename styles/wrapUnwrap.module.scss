@@ -11,13 +11,13 @@
     left: calc(((100% + 350px ) - 570px)/2);
   }
   &.wrap{
-    top: calc((100vh - 567px)/2);
+    top: calc((100vh - 440px)/2);
     @media (max-height: 767px){
       top: 100px;
     }
   }
   &.unwrap{
-    top: calc((100vh - 680px)/2);
+    top: calc((100vh - 590px)/2);
     @media (max-height: 880px){
       top: 100px;
     }
@@ -164,6 +164,9 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    .loader{
+      @include var.spinner();
+    }
     &:hover{
       background-color: var.$light-color-hover;
     }
@@ -206,6 +209,10 @@
     }
     .wrapBtn{
       background-color: var.$primary-color-dark;
+      .loader{
+        border: 3px solid var.$background-color-light;
+        border-left-color: transparent;
+      }
       &:hover{
         background-color: var.$dark-color-hover;
       }

@@ -27,10 +27,10 @@ const WrapUnwrap = () => {
           </div>
       </div>
       {tabName == "Unwrap" ? <Unwrap /> : <Wrap />}
-      <InvalidBTCAddressModal
+{/*       <InvalidBTCAddressModal
         isOpen={btcValidAddressFinal == false}
         setIsOpen={setBtcValidAddressFinal}
-      />
+      /> */}
     </div>
   );
 };
