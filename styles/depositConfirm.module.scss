@@ -8,12 +8,12 @@
     top: calc((100vh - 430px)/2);
     width: 90%;
     max-width: 570px;
-    @media (max-height: 1000px){
+/*     @media (max-height: 1000px){
       top: 50px;
     }
     @media (max-width: 1400px){
       left: calc(((100% + 350px ) - 570px)/2);
-    }
+    } */
     .popUp{
       background-color: var.$background-color-light;
       padding: 0;

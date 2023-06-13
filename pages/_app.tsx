@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { useState, useEffect } from "react";
 import GlobalContextProvider from "../components/GlobalContext";
-import KYA from "../components/home/KYA";
+//import KYA from "../components/home/KYA";
 import Init from "../components/Init";
 import Modal from "../components/Modal";
 import Leftbar from "../components/partials/Leftbar";
@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Init>
           <Modal></Modal>
           <Navbar />
-          <KYA isOpen={showKya} setIsOpen={setShowKya} />
+          {/* <KYA isOpen={showKya} setIsOpen={setShowKya} /> */}
           <Component {...pageProps} />
           <Leftbar />
         </Init>

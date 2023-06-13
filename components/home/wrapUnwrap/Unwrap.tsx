@@ -4,6 +4,7 @@ import styles from "../../../styles/wrapUnwrap.module.scss"
 import UnwrapSuccessful from "./unwrap/UnwrapSuccessful";
 import useCardanoWallet from "../../../hooks/useCardanoWallet";
 import ConnectWallet from "../../partials/navbar/ConnectWallet";
+import { formatAmount, validInput } from "../../../utils/fortmat";
 
 const Unwrap = () => {
   const {
@@ -28,8 +29,7 @@ const Unwrap = () => {
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const regex = /^[0-9]-?\d*\.?\d{0,8}$/;
-    if ((regex.test(value) || value === "") && value.length < 12){
+    if (validInput(value)){
       setAmount(value);
     }
     parseFloat(value)<0.001 ? setCheckInput(true) : setCheckInput(false)
@@ -52,6 +52,11 @@ const Unwrap = () => {
       inputElement?.removeEventListener('wheel',  handleWhell);
     }
   },[])
+
+  const handleReset = () => {
+    setAmount("");
+    setUnwrapBtcDestination("");
+  }
 
   return (
     <section className={styles.menu}>
@@ -100,7 +105,7 @@ const Unwrap = () => {
         <p className={styles.title}>Bridge Fee ({unwrapFeeBtc}%)</p>
         <div>
           <div className={styles.token}>
-            <p>{bridgeFee.toFixed(8).replace(/\.?0+$/, '')}</p>
+            <p>{formatAmount(bridgeFee)}</p>
             <p>cBTC</p>
             <svg width="30" height="30" id='icon' >
               <use href='/images/crypto/cbtc-logo.svg#Layer_1'></use>
@@ -129,7 +134,7 @@ const Unwrap = () => {
         <p className={styles.title}>You Will Receive</p>
         <div>
           <div className={styles.token}>
-            <p>{btcToBeReceived.toFixed(8).replace(/\.?0+$/, '')}</p>
+            <p>{formatAmount(btcToBeReceived)}</p>
             <p>BTC</p>
             <svg width="30" height="30" id='icon' >
               <use href='/images/crypto/bitcoin-logo.svg#Layer_1'></use>
@@ -175,7 +180,7 @@ const Unwrap = () => {
         unwrapBtcDestination={unwrapBtcDestination}
         onClick={() => setUnwrapStage(UnwrapStage.NotStart)}
         onClose={() => setUnwrapStage(UnwrapStage.NotStart)}
-        resetAmount={()=>setAmount("")}
+        reset={handleReset}
       ></UnwrapSuccessful>
     </section>
   );

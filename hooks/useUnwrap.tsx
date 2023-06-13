@@ -36,7 +36,7 @@ export default function useUnwrap() {
   const unwrap = async () => {
     const validAdrres = validate(unwrapBtcDestination, 'BTC', 'testnet');
     await tryWithErrorHandler(async () => {
-      const amountNumber = Number(amount);
+      //const amountNumber = Number(amount);
 /*       if (isNaN(amountNumber) || amountNumber <= 0) {
         throw new Error(
           "Unwrap amount is invalid. It should be a number greater than 0"
