@@ -1,12 +1,9 @@
 import { Fragment, useState } from "react";
 import styles from "../../styles/wrapUnwrap.module.scss"
-import InvalidBTCAddressModal from "./wrapUnwrap/InvalidBTCAddressModal";
 import Unwrap from "./wrapUnwrap/Unwrap";
 import Wrap from "./wrapUnwrap/Wrap";
 
 const WrapUnwrap = () => {
-  const [btcValidAddressFinal, setBtcValidAddressFinal] =
-    useState<boolean>(true);
   const [tabName, setTabName] = useState<string>("Wrap");
 
   return (
@@ -27,10 +24,6 @@ const WrapUnwrap = () => {
           </div>
       </div>
       {tabName == "Unwrap" ? <Unwrap /> : <Wrap />}
-{/*       <InvalidBTCAddressModal
-        isOpen={btcValidAddressFinal == false}
-        setIsOpen={setBtcValidAddressFinal}
-      /> */}
     </div>
   );
 };

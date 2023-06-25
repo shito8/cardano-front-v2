@@ -21,15 +21,21 @@
   .main{
     position: absolute;
     left: calc(((100% + 200px ) - 570px)/2);
-    top: calc((100vh - 830px)/2);
+    top: calc((100vh - 800px)/2);
     width: 90%;
     max-width: 570px;
-/*     @media (max-height: 1000px){
-      top: 50px;
-    }
     @media (max-width: 1400px){
       left: calc(((100% + 350px ) - 570px)/2);
-    } */
+    }
+    @media (max-width: 1000px){
+      left: calc((100% - 570px)/2);
+    }
+    @media (max-width: 627px){
+      left: 5%;
+    }
+    @media (max-height: 1000px){
+      top: 100px;
+    }
     .popUp{
       background-color: var.$background-color-light;
       padding: 0;
@@ -70,7 +76,7 @@
           flex-direction: column;
           text-align: center;
           font-size: 18px;
-          font-weight: var.$font-weight-semibold;
+          font-weight: var.$font-weight-medium;
           margin-bottom: 20px;
         }
         .warning, .text{
@@ -82,7 +88,7 @@
           p{
             .attention{
               color: var.$warning-color-light;
-              font-weight: var.$font-weight-bold;
+              font-weight: var.$font-weight-medium;
             }
             &.parragraph{
               margin-top: 20px;
@@ -91,7 +97,7 @@
               font-size: 14px;
               text-align: justify;
               span{
-                font-weight: var.$font-weight-bold;
+                font-weight: var.$font-weight-medium;
               }
             }
           }
@@ -110,7 +116,7 @@
             @extend .copiedBase;
           }
           p{
-            padding: 5px 6%;
+            padding: 5px 25px 5px 10px;
             word-break: break-all;
             text-align: center;
           }
@@ -152,7 +158,51 @@
 
 
 
-
+    @media (max-width: 700px){
+      .popUp{
+        border-radius: 10px;
+        .header{
+          height: 50px;
+          border-radius: 10px 10px 0 0;
+          h2{
+            font-size: 16px;
+          }
+        }
+        .body{
+          .titleBody{
+            font-size: 16px;
+            margin-bottom: 12px;
+          }
+          .warning, .text{
+            margin-bottom: 16px;
+            width: 85%;
+            p{
+              font-size: 14px;
+              &.parragraph{
+                margin-top: 12px;
+              }
+            }
+          }
+          .credential, .address{
+            width: 90%;
+            margin-bottom: 12px;
+            p{
+              font-size: 14px;
+            }
+          }
+          .qr{
+            width: 140px;
+            height: 140px;
+            margin-bottom: 12px;
+          }
+          .wrapBtn{
+            height: 40px;
+            border-radius: 5px;
+            font-size: 16px;
+          }
+        }
+      }
+    }
 
   }
 }

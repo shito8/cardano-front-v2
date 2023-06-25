@@ -1,9 +1,10 @@
-import { Cip30Wallet } from "@cardano-sdk/cip30";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import useCardanoWallet from "../../../hooks/useCardanoWallet";
 import styles from "../../../styles/connectWallet.module.scss"
 import { CONSTANTS } from "../../../utils/constants";
 import Image from "next/image";
+import { CardanoWalletType } from "../../../types/wallets";
+import Link from "next/link";
 
 interface Props {
   isOpen: boolean;
@@ -12,22 +13,13 @@ interface Props {
 
 const ConnectWallet = ({ isOpen, setIsOpen }: Props) => {
   const { connectWallet } = useCardanoWallet();
-  const [cardanoWallets, setCardanoWallets] = useState<Cip30Wallet[]>([]);
+  const [cardanoWallets, setCardanoWallets] = useState<CardanoWalletType[]>(Object.values(CONSTANTS.CARDANO_WALLETS));
 
   const handleConnectWallet = (cardanoWalletName: string) => {
     setIsOpen(false);
     connectWallet(cardanoWalletName);
   };
 
-  useEffect(() => {
-    const cardano = window.cardano;
-    if (cardano == null) {
-      return;
-    }
-    setCardanoWallets(
-      CONSTANTS.CARDANO_WALLETS.map((walletKey) => cardano[walletKey]) as any
-    );
-  }, []);
   
   useEffect(() => {
     if(isOpen){
@@ -57,24 +49,47 @@ const ConnectWallet = ({ isOpen, setIsOpen }: Props) => {
                   </svg>
               </header>
               <div className={styles.walletsList}>
-              {cardanoWallets.map((wallet: Cip30Wallet, i: number) =>
-                      wallet?.name && wallet?.icon ? (
-                        <div
-                          key={i}
-                          onClick={() => handleConnectWallet(wallet.name)}
+              {cardanoWallets.map((item: CardanoWalletType) => {
+                      const cardano = window.cardano;
+                      return (
+                      <Fragment key={item.name}>
+                      {
+                        (cardano == null || cardano[item.wallet] == null) ? (
+                          <Link
+                          className={styles.item}
+                          href={item.link} target="_blank"
+                          rel="noreferrer"
+                        >
+                          <div className={styles.name}>
+                            <h2>{item.name}</h2>
+                            <p>Install</p>
+                          </div>
+                          <Image
+                            src={item.icon}
+                            alt={item.name}
+                            width={40}
+                            height={40}
+                          />
+                        </Link>
+                        ): (
+                          <div
+                          key={item.name}
+                          onClick={() => handleConnectWallet(item.name)}
                           className={styles.item}
                         >
                           <div className={styles.name}>
-                            <h2>{wallet.name}</h2>
+                            <h2>{item.name}</h2>
                           </div>
                           <Image
-                            src={wallet.icon}
-                            alt={wallet.name}
+                            src={item.icon}
+                            alt={item.name}
                             width={40}
                             height={40}
                           />
                         </div>
-                      ) : null
+                        )
+                      }
+                    </Fragment>)}                
                 )}
               </div>
             </div>

@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../../GlobalContext";
 import styles from "../../../styles/setting.module.scss"
 import Link from "next/link";
+import useWindowSize from "../../../hooks/useResponsive";
+import { AppContext } from "../../../pages/_app";
 
 interface Props {
   openSetting: boolean;
@@ -13,8 +14,13 @@ interface Props {
 const Setting = (props: Props) => {
 
   const { openSetting, setOpenSetting, display, setDisplay } = props;
-  const { setDarkMode } = useContext(GlobalContext);
   const [theme, setTheme] = useState<String>('');
+
+  const { width } = useWindowSize();
+  const isSmall = width < 700;
+
+  const appContext = useContext(AppContext);
+  const { dispatch } = appContext ?? { dispatch: ()=> {} }
 
   useEffect(() => {
     const themeMode = localStorage.getItem('themeMode')
@@ -28,16 +34,16 @@ const Setting = (props: Props) => {
   const handleThemeChange = (newTheme: string) => {
     let theme, dark;
     if (newTheme === "light") {
-        setDarkMode(false)
+      dispatch({type: 'themeMode', payload: false})
         theme = 'light';
         dark = false;
     } else if (newTheme === "dark") {
-      setDarkMode(true)
+      dispatch({type: 'themeMode', payload: true})
         theme = 'dark';
         dark = true;
     } else {
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      setDarkMode(mediaQuery.matches)
+      dispatch({type: 'themeMode', payload: mediaQuery.matches})
       theme = 'system';
       dark = mediaQuery.matches;
     }
@@ -109,6 +115,19 @@ return (
           </p>
         </Link>  
       </div>
+
+      {isSmall &&
+      <div className={styles.item}>
+        <Link href='/feedback' target="_blank" className={styles.link}>
+        <p>
+            <svg width="14" height="14" id='icon' className={styles.feedback}>
+              <use href="/images/icons/comment.svg#icon"></use>
+            </svg>
+          Feedback
+        </p>
+        </Link>
+      </div>}
+
       <div className={styles.item}>
         <Link href='https://docs.anetabtc.io/' target="_blank" className={styles.link}>
         <p>

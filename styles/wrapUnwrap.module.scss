@@ -5,20 +5,27 @@
   background-color: var.$background-color-light;
   position: absolute;
   left: calc(((100% + 200px ) - 570px)/2);
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 20px;
+  max-width: 90%;
   @media (max-width: 1400px){
     left: calc(((100% + 350px ) - 570px)/2);
   }
+  @media (max-width: 1000px){
+    left: calc((100% - 570px)/2);
+  }
+  @media (max-width: 627px){
+    left: 5%;
+  }
   &.wrap{
     top: calc((100vh - 440px)/2);
-    @media (max-height: 767px){
+    @media (max-height: 640px){
       top: 100px;
     }
   }
   &.unwrap{
     top: calc((100vh - 590px)/2);
-    @media (max-height: 880px){
+    @media (max-height: 780px){
       top: 100px;
     }
   }
@@ -67,7 +74,7 @@
 
   .menu{
     width: 100%;
-    .title{
+    .titleSection{
       margin: 20px 0;
       text-align: center;
       color: #575757;
@@ -81,7 +88,7 @@
         border-radius: 12px;
         background-color: var.$secondary-color-light;
         font-size: 40px;
-        font-weight: var.$font-weight-semibold;
+        font-weight: var.$font-weight-medium;
         color: var.$primary-color-input;
       }
       .token{
@@ -99,15 +106,15 @@
         gap: 10px;
         p{
           font-size: 24px;
-          font-weight: var.$font-weight-semibold;
+          font-weight: var.$font-weight-medium;
         }
       }
       .warning{
-        position: absolute;
         display: flex;
         align-items: center;
-        padding: 4px 0 10px 10px;
+        padding: 10px 0 10px 10px;
         gap: 10px;
+        width: 90%;
         :global(svg#icon){
           use{
             fill: #DD524C;
@@ -117,7 +124,6 @@
         p{
           font-size: 14px;
           color: #DD524C;
-          font-weight: var.$font-weight-semibold;
         }
       }
     }
@@ -130,8 +136,9 @@
         border-radius: 12px;
         background-color: var.$secondary-color-light;
         font-size: 16px;
-        font-weight: var.$font-weight-semibold;
+        font-weight: var.$font-weight-medium;
         color: var.$primary-color-input;
+        word-break: break-all;
       }
     }
   }
@@ -143,7 +150,7 @@
     height: 70px;
     padding: 0 20px;
     .title{
-      font-weight: var.$font-weight-semibold;
+      font-weight: var.$font-weight-medium;
       font-size: 18px;
     }
     .token{
@@ -151,8 +158,8 @@
       align-items: center;
       gap: 10px;
       p{
-        font-size: 18px;;
-        font-weight: var.$font-weight-semibold;
+        font-size: 18px;
+        font-weight: var.$font-weight-medium;
       }
     }
   }
@@ -173,6 +180,117 @@
     &:disabled{
       background-color: var.$light-color-disable;
       cursor: not-allowed;
+    }
+  }
+  @media (max-width: 700px){
+    border-radius: 10px;
+    .options{
+      height: 40px;
+      border-radius: 5px;
+    }
+    .menu{
+      .titleSection{
+        margin: 10px 0;
+        font-size: 14px;
+      }
+      .inputAmount{
+        input{
+          height: 60px;
+          font-size: 24px;
+          border-radius: 5px;
+        }
+        .token{
+            top: 18px;
+        }
+        .tokenName{
+          svg{
+            width: 24px;
+            height: auto;
+          }
+          p{
+            font-size: 16px;
+          }
+        }
+      }
+      .inputAddress{
+        margin-top: 16px;
+        input{
+          border-radius: 5px;
+        }
+      }
+    }
+    .sectionFee{
+      flex-direction: column;
+      height: 80px;
+      justify-content: center;
+      gap: 5px;
+      align-items: flex-start;
+      .title{
+        margin: 0;
+        font-size: 16px;
+      }
+      .token{
+        gap: 6px;
+        align-self: flex-end;
+        p{
+          font-size: 16px;
+        }
+        svg{
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+    .wrapBtn{
+      margin-top: 5px;
+      height: 40px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  }
+  @media (max-width: 400px){
+    .options{
+      .item{
+        p{
+          font-size: 14px;
+          font-weight: var.$font-weight-medium;
+        }
+      }
+    }
+    .menu{
+      .inputAmount{
+        input{
+          font-size: 18px;
+          padding: 0 10px;
+        }
+        .token{
+          right: 10px;
+        }
+        .tokenName{
+          gap: 5px;
+        }
+        .warning{
+          p{
+            width: calc(100% - 30px);
+          }
+        }
+      }
+      .inputAddress{
+        input{
+          font-size: 14px;
+        }
+      }
+      .sectionFee{
+        padding: 0 10px;
+        .title{
+          font-size: 14px;
+        }
+        .token{
+          p{
+            font-size: 14px;
+          }
+        }
+      }
     }
   }
 }

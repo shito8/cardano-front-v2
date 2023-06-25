@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import useWrap, { WrapStage } from "../../../hooks/useWrap";
 import styles from "../../../styles/wrapUnwrap.module.scss"
-//import ButtonLoader from "../../partials/loader/ButtonLoader";
 import DepositConfirmModal from "./wrap/DepositConfirmModal";
 import SendDepositModal from "./wrap/SendDepositModal";
 import useCardanoWallet from "../../../hooks/useCardanoWallet";
@@ -57,7 +56,7 @@ const Wrap = () => {
 
   return (
     <section className={styles.menu}>
-      <p className={styles.title}>Mint cBTC</p>
+      <p className={styles.titleSection}>Mint cBTC</p>
       {/* Wrap BTC Input */}
       <div className={styles.inputAmount}>
         <input
@@ -86,15 +85,13 @@ const Wrap = () => {
       </div>
       {/* fee */}
       <section className={styles.sectionFee}>
-        <p className={styles.title}>Bridge Fee ({wrapFeeBtc}%)</p>
-        <div>
-          <div className={styles.token}>
-            <p>{formatAmount(bridgeFee)}</p>
-            <p>BTC</p>
-            <svg width="30" height="30" id='icon' >
-              <use href='/images/crypto/bitcoin-logo.svg#Layer_1'></use>
-            </svg>
-          </div>
+        <p className={styles.title}>Bridge Fee ({wrapFeeBtc}%)</p>     
+        <div className={styles.token}>
+          <p>{formatAmount(bridgeFee)}</p>
+          <p>BTC</p>
+          <svg width="30" height="30" id='icon' >
+            <use href='/images/crypto/bitcoin-logo.svg#Layer_1'></use>
+          </svg>
         </div>
       </section>
       {/* my receive amount  */}

@@ -60,7 +60,7 @@ const Unwrap = () => {
 
   return (
     <section className={styles.menu}>
-      <p className={styles.title}>Redeem BTC</p>
+      <p className={styles.titleSection}>Redeem BTC</p>
 
       {/* amount field  */}
       <div className={styles.inputAmount}>
@@ -103,28 +103,24 @@ const Unwrap = () => {
       {/* fee */}
       <div className={styles.sectionFee}>
         <p className={styles.title}>Bridge Fee ({unwrapFeeBtc}%)</p>
-        <div>
-          <div className={styles.token}>
-            <p>{formatAmount(bridgeFee)}</p>
-            <p>cBTC</p>
-            <svg width="30" height="30" id='icon' >
-              <use href='/images/crypto/cbtc-logo.svg#Layer_1'></use>
-            </svg>
-          </div>
+        <div className={styles.token}>
+          <p>{formatAmount(bridgeFee)}</p>
+          <p>cBTC</p>
+          <svg width="30" height="30" id='icon' >
+            <use href='/images/crypto/cbtc-logo.svg#Layer_1'></use>
+          </svg>
         </div>
       </div>
 
       {/* fee */}
       <div className={styles.sectionFee}>
         <p className={styles.title}>Cardano Transaction Fee</p>
-        <div>
-          <div className={styles.token}>
-            <p>{unwrapFeeCardano}</p>
-            <p>ADA</p>
-            <svg width="30" height="30" id='icon' >
-              <use href='/images/crypto/cardano-logo.svg#Layer_1'></use>
-            </svg>
-          </div>
+        <div className={styles.token}>
+          <p>{unwrapFeeCardano}</p>
+          <p>ADA</p>
+          <svg width="30" height="30" id='icon' >
+            <use href='/images/crypto/cardano-logo.svg#Layer_1'></use>
+          </svg>
         </div>
       </div>
 
@@ -132,14 +128,12 @@ const Unwrap = () => {
 
       <div className={styles.sectionFee}>
         <p className={styles.title}>You Will Receive</p>
-        <div>
-          <div className={styles.token}>
-            <p>{formatAmount(btcToBeReceived)}</p>
-            <p>BTC</p>
-            <svg width="30" height="30" id='icon' >
-              <use href='/images/crypto/bitcoin-logo.svg#Layer_1'></use>
-            </svg>
-          </div>
+        <div className={styles.token}>
+          <p>{formatAmount(btcToBeReceived)}</p>
+          <p>BTC</p>
+          <svg width="30" height="30" id='icon' >
+            <use href='/images/crypto/bitcoin-logo.svg#Layer_1'></use>
+          </svg>
         </div>
       </div>
       {/* final button  */}

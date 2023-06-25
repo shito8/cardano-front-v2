@@ -1,31 +1,7 @@
 import Head from "next/head";
 import WrapUnwrap from "../components/home/WrapUnwrap";
-import React, { useContext, useEffect } from "react";
-import { GlobalContext } from "../components/GlobalContext";
 
 export default function Home() {
-
-  const { darkMode, setDarkMode } = useContext(GlobalContext);
-
-  useEffect(() => {
-    const body = document.body;
-    const themeMode = localStorage.getItem("themeMode");
-    if (themeMode !== null) {
-      const theme = JSON.parse(themeMode);
-      if (theme.dark) {
-        setDarkMode(true);
-        body.classList.add("dark");
-      } else {
-        setDarkMode(false);
-        body.classList.remove("dark");
-      }
-    } else{
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      setDarkMode(mediaQuery.matches);
-      const theme = { theme: "system", dark: mediaQuery.matches };
-      localStorage.setItem("themeMode", JSON.stringify(theme));
-    }
-  }, [setDarkMode, darkMode]);
 
   return (
     <>

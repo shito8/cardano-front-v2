@@ -8,12 +8,18 @@
     top: calc((100vh - 510px)/2);
     width: 90%;
     max-width: 570px;
-/*     @media (max-height: 1000px){
-      top: 50px;
-    }
     @media (max-width: 1400px){
       left: calc(((100% + 350px ) - 570px)/2);
-    } */
+    }
+    @media (max-width: 1000px){
+      left: calc((100% - 570px)/2);
+    }
+    @media (max-width: 627px){
+      left: 5%;
+    }
+    @media (max-height: 710px){
+      top: 100px;
+    }
     .popUp{
       background-color: var.$background-color-light;
       padding: 0;
@@ -42,11 +48,12 @@
           align-items: center;
           justify-content: center;
           margin: 20px 0;
+          width: 90%;
           .group{
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 175px;
+            width: 40%;
             .name{
               gap: 5px;
               display: flex;
@@ -73,10 +80,11 @@
             align-items: center;
             justify-content: center;
             align-self: flex-start;
-            margin: 14px 0;
+            height: 50px;
+            width: 20%;
             img{
-              height: 20px;
-              width: auto;
+              width: 80%;
+              height: auto;
             }
           }
 
@@ -126,7 +134,66 @@
 
       }
     }
+    @media (max-width: 700px){
+      .popUp{
+        border-radius: 10px;
+        .header{
+          height: 50px;
+          border-radius: 10px 10px 0 0;
+          h2{
+            font-size: 16px;
+          }
+        }
+        .body{
+          .result{
+            margin: 12px 0;
+            .group{
+              .name{
+                height: 36px;
+                border-radius: 5px;
+              }
+              .value{
+                height: 30px;
+                p{
+                  font-size: 16px;
+                }
+                
+              }
+            }
+            .arrow{
+              height: 35px;
+            }
+          }
+          .address{
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            p{
+              font-size: 14px;
+            }
+          }
+          .text{
+            font-size: 14px;
+            margin-bottom: 15px;
+            width: 85%;
+            p{
+              &.parragraph{
+                margin-top: 12px;
+              }
+            }
+          }
+          .wrapBtn{
+            height: 40px;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 15px;
+          }
 
+        }
+
+
+      }
+    }
 
 
   }

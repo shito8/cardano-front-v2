@@ -1,8 +1,6 @@
 import Image from "next/image";
 //import WrapUnwrapModal from "../WrapUnwrapModal";
 import styles from "../../../../styles/depositConfirm.module.scss"
-import { useState, useContext } from "react";
-import { GlobalContext } from "../../../GlobalContext";
 
 interface Props {
   isOpen: boolean;
@@ -21,8 +19,6 @@ export default function DepositConfirmModal({
   onClose,
   resetAmount,
 }: Props) {
-
-  const { darkMode } = useContext(GlobalContext);
 
 
   const handleClick = () => {

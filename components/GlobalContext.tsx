@@ -1,6 +1,6 @@
 import { Cip30Wallet, WalletApi } from "@cardano-sdk/cip30";
 import { Lucid } from "lucid-cardano";
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useState} from "react";
 import { ModalState } from "../hooks/useModal";
 import { Config } from "../utils";
 import { CardanoNetwork } from "../utils/api";
@@ -16,8 +16,6 @@ interface GlobalContextState {
   setModalState: (_: ModalState) => void;
   config: Config;
   setConfig: (_: Config) => void;
-  darkMode: boolean;
-  setDarkMode: (_: boolean) => void;
 }
 
 export const GlobalContext = createContext<GlobalContextState>({
@@ -42,8 +40,6 @@ export const GlobalContext = createContext<GlobalContextState>({
     unwrapFeeCardano: 0,
   },
   setConfig: () => {},
-  darkMode: false,
-  setDarkMode: () => {},
 });
 
 export default function GlobalContextProvider({
@@ -68,8 +64,6 @@ export default function GlobalContextProvider({
     unwrapFeeCardano: 0,
   });
 
-  const [darkMode, setDarkMode] = useState<boolean>(false);
-
   const globalContext: GlobalContextState = {
     walletMeta,
     setWalletMeta,
@@ -81,8 +75,6 @@ export default function GlobalContextProvider({
     setModalState,
     config,
     setConfig,
-    darkMode,
-    setDarkMode,
   };
 
   return (

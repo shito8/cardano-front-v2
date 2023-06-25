@@ -1,66 +1,37 @@
-//icons
-import { ArrowPathIcon } from "@heroicons/react/24/solid";
-import {
-  BsDiscord,
-  BsFacebook,
-  BsGithub,
-  BsTelegram,
-  BsTwitter,
-} from "react-icons/bs";
-import { MdFeedback } from "react-icons/md";
-import { SiReadthedocs } from "react-icons/si";
 import { NavigationType } from "../../types/leftbar";
 
 export const navigationLeftbar: NavigationType[] = [
   {
     name: "Bridge",
     href: "/",
-    //icon: ArrowPathIcon,
-    iconDark: "/images/icons/bridge-dark.png",
-    iconLight: "/images/icons/bridge-light.png",
+    icon: "/images/icons/arrow-repeat.svg#icon",
     current: false,
   },
   // {
   //   name: "Transactions",
   //   href: "/transactions",
   //   icon: AiOutlineHistory,
-  //   iconDark: "/images/icons/transactions-dark.png",
-  //   iconLight: "/images/icons/transactions-light.png",
   //   current: false,
   // },
   // {
   //   name: "Dashboard",
   //   href: "/dashboard",
   //   icon: BsFillGridFill,
-  //   iconDark: "/images/icons/dashboard-dark.png",
-  //   iconLight: "/images/icons/dashboard-light.png",
   //   current: false,
   // },
   {
     name: "Feedback",
     href: "/feedback",
-    //icon: MdFeedback,
-    iconDark: "/images/icons/feedback-dark.png",
-    iconLight: "/images/icons/feedback-light.png",
+    icon: "/images/icons/comment.svg#icon",
     current: false,
   },
   {
     name: "Docs",
     href: "https://docs.anetabtc.io",
-    //icon: SiReadthedocs,
-    iconDark: "/images/icons/docs-dark.png",
-    iconLight: "/images/icons/docs-light.png",
+    icon: "/images/icons/file-earmark-text.svg#icon",
     current: false,
   },
 ];
-
-/* export const socialIconLeftbar = [
-  { icon: BsTwitter },
-  { icon: BsTelegram },
-  { icon: BsDiscord },
-  { icon: BsFacebook },
-  { icon: BsGithub },
-]; */
 
 export const socialLinks = [
   {

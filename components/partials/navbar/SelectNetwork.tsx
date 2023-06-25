@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import styles from "../../../styles/selectNetwork.module.scss"
+import styles from "../../../styles/selectNetwork.module.scss";
+import useWindowSize from "../../../hooks/useResponsive";
 
 
 interface Network {
@@ -17,6 +18,9 @@ const SelectNetwork = () => {
 
   const [selectedNetwork, setSelectedNetwork] = useState(network[0]);
   const [isOpenList, setIsOpenList] = useState(false);
+
+  const { width } = useWindowSize();
+  const isLarge = width > 700;
 
 
   const handleMenuClick = () => {
@@ -62,9 +66,9 @@ const SelectNetwork = () => {
             <svg width="20" height="20" id='icon' >
               <use href={selectedNetwork.image}></use>
             </svg>
-            <p>{selectedNetwork.name}</p>
+            {isLarge &&<p>{selectedNetwork.name}</p>}
           </div>
-          <div>
+          <div className={styles.iconArrow}>
             <svg width="14" height="14" id="icon">
               <use href="/images/icons/chevron-down.svg#icon"></use>
             </svg>

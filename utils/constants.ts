@@ -1,7 +1,43 @@
 import { CardanoNetwork } from "./api";
 
 export const CONSTANTS = {
-  CARDANO_WALLETS: ["eternl", "nami", "gerowallet", "lace", "typhoncip30"],
+CARDANO_WALLETS: [
+    {
+      wallet: "eternl",
+      name: "eternl",
+      icon: "/images/wallet/eternl.png",
+      link: "https://chrome.google.com/webstore/detail/eternl/kmhcihpebfmpgmihbkipmjlmmioameka"
+    },
+    {
+      wallet: "nami",
+      name: "Nami",
+      icon: "/images/wallet/nami.png",
+      link: "https://chrome.google.com/webstore/detail/nami/lpfcbjknijpeeillifnkikgncikgfhdo"
+    },
+/*     gerowallet: {
+      wallet: "gerowallet",
+      name: "GeroWallet",
+      icon: "/images/wallet/gerowallet.png",
+      link: "https://chrome.google.com/webstore/detail/gerowallet/bgpipimickeadkjlklgciifhnalhdjhe"
+    }, */
+    {
+      wallet: "lace",
+      name: "lace",
+      icon: "/images/wallet/lace.png",
+      link: "https://chrome.google.com/webstore/detail/lace/gafhhkghbfjjkeiendhlofajokpaflmk"
+    },
+/*     flint: {
+      name: "Flint Wallet",
+      icon: "/images/wallet/flint.png",
+      link: "https://chrome.google.com/webstore/detail/flint-wallet/hnhobjmcibchnmglfbldbfabcgaknlkj"
+    }, */
+    {
+      wallet: "yoroi",
+      name: "yoroi",
+      icon: "/images/wallet/yoroi.png",
+      link: "https://chrome.google.com/webstore/detail/yoroi/ffnbelfdoeiohenkjibnmadjiehjhajb"
+    },
+],
   LOCAL_STORAGE_KEYS: {
     WALLET: "cbtc-cardano-wallet",
   },

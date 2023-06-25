@@ -1,6 +1,5 @@
 import { Fragment, useContext} from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "../../styles/leftNav.module.scss";
 import { CardanoNetwork } from "../../utils/api";
@@ -10,7 +9,7 @@ import { GlobalContext } from "../GlobalContext";
 const Leftbar = () => {
   const router = useRouter();
 
-  const { config, darkMode } = useContext(GlobalContext);
+  const { config } = useContext(GlobalContext);
 
   return (
     <div className={styles.leftNav}>
@@ -23,12 +22,10 @@ const Leftbar = () => {
       <div className={styles.navigationContainer}>           
         {navigationLeftbar.map((item) => (
           <Fragment key={item.name}>
-            <Link href={item.href} className={`${styles.item} ${router.pathname == item.href ? styles.active : ""}`} target={item.href.startsWith('http') ? '_blank' : ''} rel={item.href.startsWith('http') ? 'noreferrer' : ''} >
-              {darkMode ? (
-                <Image src={item.iconDark} width={20} height={20} alt={item.name} />
-                ): (
-                <Image src={item.iconLight} width={20} height={20} alt={item.name} />
-                )}
+            <Link href={item.href} className={`${styles.item} ${router.pathname == item.href ? styles.active : ""}`} target={item.href.startsWith('http') ? '_blank' : ''} rel={item.href.startsWith('http') ? 'noreferrer' : ''}>
+                <svg width="20" height="20" className={styles.icon}>
+                  <use href={item.icon}></use>
+                </svg>
                 <p>{item.name}</p>                  
                   </Link>
                 </Fragment>

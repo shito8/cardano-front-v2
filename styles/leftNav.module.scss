@@ -6,10 +6,10 @@
   position: absolute;
   left: 85px;
   top: calc((100vh - 228px)/2);
-  border-radius: 20px;
-/*   @media (max-height: 500px){
+  border-radius: 15px;
+  @media (max-height: 425px){
     top: 100px;
-  } */
+  }
   @media (min-width: 2000px){
     left: calc(((100vw - 2000px)/2) + 85px);
   }
@@ -38,12 +38,15 @@
       align-items: center;
       height: 45px;
       width: 100%;
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 0 20px;
       gap: 25px;
       margin: 2.5px 0;
+      .icon{
+        fill: #323232;
+      }
       p{
-        font-weight: var.$font-weight-semibold;
+        font-weight: var.$font-weight-medium;
         color: #323232;
         img{
           margin-left: 5px;
@@ -54,6 +57,9 @@
       }
       &.active{
         background-color: var.$primary-color-light;
+        .icon{
+          fill: var.$primary-color-font;
+        }
         p{
           color: var.$primary-color-font;
         }
@@ -106,6 +112,9 @@
     }
     .navigationContainer{
       .item{
+        .icon{
+          fill: #B1B1B1;
+        }
         p{
           color: #B1B1B1;
         }
@@ -114,6 +123,9 @@
         }
         &.active{
           background-color: var.$primary-color-dark;
+          .icon{
+            fill: var.$secundary-color-font;
+          }
           p{
             color: var.$secundary-color-font;
           }

@@ -29,19 +29,7 @@ export default function useWrap() {
 
   const wrap = async () => {
     await tryWithErrorHandler(() => {
-/*       if (walletApi == null) {
-        throw new Error("Wallet is not connected");
-      } */
-
-      setIsLoading(true);
-
-/*       const amountNumber = Number(amount);
-      if (isNaN(amountNumber) || amountNumber <= 0) {
-        throw new Error(
-          "Wrap amount is invalid. It should be a number greater than 0"
-        );
-      } */
-      
+      setIsLoading(true);  
       setTimeout(()=>{
         setWrapStage(WrapStage.Pending);
         setIsLoading(false);
