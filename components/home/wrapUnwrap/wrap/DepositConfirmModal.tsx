@@ -1,11 +1,12 @@
 import Image from "next/image";
 //import WrapUnwrapModal from "../WrapUnwrapModal";
 import styles from "../../../../styles/depositConfirm.module.scss"
+import { formatAmount } from "../../../../utils/fortmat";
 
 interface Props {
   isOpen: boolean;
   amount: string;
-  amountToReceive: string;
+  amountToReceive: number;
   onClick: () => void;
   onClose: () => void;
   resetAmount: () => void;
@@ -63,14 +64,14 @@ export default function DepositConfirmModal({
                       <h3>cBTC</h3>
                     </div>
                     <div className={styles.value}>
-                      <p>{amountToReceive}</p>
+                      <p>{formatAmount(amountToReceive)}</p>
                     </div>
                   </div>
                 </div>
 
                 <div className={styles.text}>
                   <p>
-                  Thank you for sending your BTC Deposit. cBTC will be sent to your Cardano wallet once your BTC deposit is confirmed. This process may take up to 24 hours.
+                  Thank you for sending your BTC Deposit. cBTC will be sent to your Cardano wallet once your BTC deposit is confirmed. This process may take up over 10 minutes.
                   </p>
                   <p className={styles.parragraph}>
                   If you need support, send your BTC transaction ID and your Cardano address and we will help you.

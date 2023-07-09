@@ -33,19 +33,38 @@ export default function useLucid() {
       lucid.utils.mintingPolicyToId(cBTCMintingPolicy),
       fromText("cBTC")
     );
+
+    /*
     const walletUtxos = await lucid.utxosAtWithUnit(
       await lucid.wallet.address(),
       unit
     );
-    if (!walletUtxos.length) {
-      throw new Error("cBTC not found in wallet");
+    */
+
+    const walletUtxos = await lucid.wallet.getUtxos();
+
+    const filteredUtxos = walletUtxos.filter((item) => item.assets.hasOwnProperty(unit));
+
+    /*
+    const replacer = (key: any, value: any) => typeof value === "bigint" ? value.toString() : value;
+    console.log('UTxOs:');
+    console.log(JSON.stringify(walletUtxos, replacer, 2));
+
+    console.log('Filtered UTxOs:');
+    console.log(JSON.stringify(filteredUtxos, replacer, 2));
+
+    console.log(unit);
+    */
+    
+    if (!filteredUtxos.length) {
+      throw new Error("cBTC not found in wallet.");
     }
     const redeemer = Data.to(new Constr(1, []));
 
     const totalAssets = { [unit]: BigInt(-burnAmountInSats) };
     const tx = await lucid
       .newTx()
-      .collectFrom(walletUtxos)
+      .collectFrom(filteredUtxos)
       .attachMintingPolicy(cBTCMintingPolicy)
       .mintAssets(totalAssets, redeemer)
       .attachMetadata(0, {

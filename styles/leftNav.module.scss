@@ -45,7 +45,7 @@
       .icon{
         fill: #323232;
       }
-      p{
+      .name{
         font-weight: var.$font-weight-medium;
         color: #323232;
         img{
@@ -60,8 +60,9 @@
         .icon{
           fill: var.$primary-color-font;
         }
-        p{
+        .name{
           color: var.$primary-color-font;
+
         }
       }
     }

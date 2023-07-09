@@ -1,10 +1,11 @@
 import Image from "next/image";
 import styles from "../../../../styles/unWrapConfirm.module.scss";
+import { formatAmount } from "../../../../utils/fortmat";
 
 interface Props {
   isOpen: boolean;
   amount: string;
-  amountToReceive: string;
+  amountToReceive: number;
   unwrapBtcDestination: string;
   onClick: () => void;
   onClose: () => void;
@@ -67,7 +68,7 @@ export default function UnwrapSuccessful({
                       <h3>BTC</h3>
                     </div>
                     <div className={styles.value}>
-                      <p>{amountToReceive}</p>
+                      <p>{formatAmount(amountToReceive)}</p>
                     </div>
                   </div>
                 </div>
@@ -80,7 +81,7 @@ export default function UnwrapSuccessful({
 
                 <div className={styles.text}>
                   <p>
-                  Your cBTC has been sent for unwrap. BTC will be sent to your BTC wallet shortly. This may take up to 24 hours. {`Don't `}worry, your funds are safe :).
+                  Your cBTC has been sent for unwrap. BTC will be sent to your BTC wallet shortly. This may take up over 10 minutes. {`Don't`} worry, your funds are safe :).
                   </p>
                   <p className={styles.parragraph}>
                   If you need support, send your BTC transaction ID and your Cardano address and we will help you.

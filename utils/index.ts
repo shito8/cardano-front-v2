@@ -7,4 +7,5 @@ export interface Config {
   wrapFeeBtc: number;
   unwrapFeeBtc: number;
   unwrapFeeCardano: number;
+  cbtcAssetId: string;
 }

@@ -3,6 +3,8 @@ import { GlobalContext } from "../components/GlobalContext";
 import useLucid from "./useLucid";
 import { useTryCatch } from "./useTryCatch";
 import { validate } from 'multicoin-address-validator';
+import { formatAmount } from "../utils/fortmat";
+import useBitcoinFees from "./useBitcoinFees";
 
 export enum UnwrapStage {
   NotStart,
@@ -13,6 +15,15 @@ export default function useUnwrap() {
   const { config } = useContext(GlobalContext);
   const unwrapFeeBtc = config.unwrapFeeBtc;
   const unwrapFeeCardano = config.unwrapFeeCardano;
+
+  const feesRecommended: number | undefined = useBitcoinFees();
+  const [networkFee, setNetworkFee] = useState("")
+
+  useEffect(() => {
+    if(feesRecommended){
+      setNetworkFee(formatAmount((feesRecommended*150)/100000000));
+    }
+  }, [feesRecommended]);
 
   const { tryWithErrorHandler } = useTryCatch();
   const { unwrap: lucidUnwrap } = useLucid();
@@ -28,10 +39,15 @@ export default function useUnwrap() {
   );
 
   useEffect(() => {
-    const fee = unwrapFeeBtc / 100 * Number(amount);
-    setBridgeFee(fee);
-    setBtcToBeReceived(Number(amount) - fee);
-  }, [unwrapFeeBtc, amount]);
+    const fee = (unwrapFeeBtc / 100 * Number(amount) + 0.0005 + Number(networkFee));
+    if(amount === ""){
+      setBridgeFee(0)
+      setBtcToBeReceived(0);
+    } else{
+      setBridgeFee(fee);
+      setBtcToBeReceived(Number(amount) - fee);
+    }
+  }, [unwrapFeeBtc, amount, networkFee]);
 
   const unwrap = async () => {
     const validAdrres = validate(unwrapBtcDestination, 'BTC', 'testnet');
@@ -72,5 +88,6 @@ export default function useUnwrap() {
     isLoading,
     unwrapStage,
     setUnwrapStage,
+    networkFee,
   };
 }

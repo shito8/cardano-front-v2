@@ -9,8 +9,8 @@ interface Network {
 }
 
 const network: Network[] = [
-  { name: "Cardano", image: "/images/crypto/cardano-logo.svg#Layer_1" },
-  { name: "Ergo", image: "/images/crypto/ergo-logo.svg#Layer_1" },
+  { name: "CARDANO", image: "/images/crypto/cardano-logo.svg#Layer_1" },
+  { name: "ERGO", image: "/images/crypto/ergo-logo.svg#Layer_1" },
 ];
 
 
@@ -81,7 +81,7 @@ const SelectNetwork = () => {
           <div className={styles.list}>
             {network.map((item, index) => {
               return (
-              <div key={index} className={`${styles.item} ${item.name === "Cardano" ? 'active' : ''}`} onClick={handleListClick} data-network={/* item.name */"Cardano"}>
+              <div key={index} className={`${styles.item} ${item.name === "CARDANO" ? 'active' : ''}`} onClick={handleListClick} data-network={/* item.name */"CARDANO"}>
                 <svg width="20" height="20" id='icon' >
                   <use href={item.image}></use>
                 </svg>

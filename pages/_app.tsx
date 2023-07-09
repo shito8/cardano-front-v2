@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import GlobalContextProvider from "../components/GlobalContext";
-//import KYA from "../components/home/KYA";
+import KYA from "../components/home/KYA";
 import Init from "../components/Init";
 import Modal from "../components/Modal";
 import Leftbar from "../components/partials/Leftbar";
@@ -17,12 +17,9 @@ export const AppContext = createContext<{
 } | null>(null);
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [showKya, setShowKya] = useState<boolean>(true);
   const { width } = useWindowSize();
   const isLarge = width > 1000;
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  
 
   useEffect(() => {
     const body = document.body;
@@ -51,7 +48,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Init>
           <Modal></Modal>
           <Navbar />
-          {/* <KYA isOpen={showKya} setIsOpen={setShowKya} /> */}
+          <KYA />
           <Component {...pageProps} />
           {isLarge && <Leftbar />}
         </Init>

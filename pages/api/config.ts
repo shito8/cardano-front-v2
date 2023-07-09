@@ -9,6 +9,7 @@ const BTC_UNWRAP_ADDRESS = process.env.BTC_UNWRAP_ADDRESS ?? "";
 const WRAP_FEE_BTC = Number(process.env.WRAP_FEE_BTC ?? 0);
 const UNWRAP_FEE_BTC = Number(process.env.UNWRAP_FEE_BTC ?? 0);
 const UNWRAP_FEE_CARDANO = Number(process.env.UNWRAP_FEE_CARDANO ?? 0);
+const CBTC_ASSET_ID = process.env.CBTC_ASSET_ID ?? "";
 
 export default function handler(
   _: NextApiRequest,
@@ -27,5 +28,6 @@ export default function handler(
     wrapFeeBtc: WRAP_FEE_BTC,
     unwrapFeeBtc: UNWRAP_FEE_BTC,
     unwrapFeeCardano: UNWRAP_FEE_CARDANO,
+    cbtcAssetId: CBTC_ASSET_ID,
   });
 }

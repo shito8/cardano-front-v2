@@ -20,12 +20,15 @@ const Unwrap = () => {
     isLoading,
     unwrapStage,
     setUnwrapStage,
+    networkFee,
   } = useUnwrap();
 
   const { walletMeta } = useCardanoWallet();
   const [isWalletShowing, setIsWalletShowing] = useState(false);
 
   const [checkInput, setCheckInput] = useState<boolean>(false);
+
+  const [isHover, setIsHover] = useState(false);
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -102,7 +105,26 @@ const Unwrap = () => {
 
       {/* fee */}
       <div className={styles.sectionFee}>
-        <p className={styles.title}>Bridge Fee ({unwrapFeeBtc}%)</p>
+        <div className={styles.bridge}>
+          <p className={styles.title}>Bridge Fee</p>
+          <div className={styles.tooltip} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+            <svg width="14" height="14" id='icon' className={styles.icon}>
+              <use href="/images/icons/question-circle.svg#icon"></use>
+            </svg>
+            {
+              isHover && (
+              <>
+                <div className={styles.tooltipContent}>
+                  <p>{unwrapFeeBtc}% + 0.0005 BTC + estimated BTC network fee
+                  ({networkFee=== ""? " ... ": networkFee})</p>
+                </div>
+                <div className={styles.tooltipArrow}></div>
+              </>
+)
+            }  
+          </div>
+        </div>
+        
         <div className={styles.token}>
           <p>{formatAmount(bridgeFee)}</p>
           <p>cBTC</p>
@@ -114,7 +136,9 @@ const Unwrap = () => {
 
       {/* fee */}
       <div className={styles.sectionFee}>
-        <p className={styles.title}>Cardano Transaction Fee</p>
+        <div className={styles.bridge}>
+          <p className={styles.title}>Cardano Transaction Fee</p>
+        </div>
         <div className={styles.token}>
           <p>{unwrapFeeCardano}</p>
           <p>ADA</p>
@@ -127,7 +151,9 @@ const Unwrap = () => {
       {/* my receive amount  */}
 
       <div className={styles.sectionFee}>
-        <p className={styles.title}>You Will Receive</p>
+      <div className={styles.bridge}>
+          <p className={styles.title}>You Will Receive</p>
+        </div>
         <div className={styles.token}>
           <p>{formatAmount(btcToBeReceived)}</p>
           <p>BTC</p>
@@ -170,7 +196,7 @@ const Unwrap = () => {
       <UnwrapSuccessful
         isOpen={unwrapStage === UnwrapStage.Success}
         amount={amount}
-        amountToReceive={btcToBeReceived.toString()}
+        amountToReceive={btcToBeReceived}
         unwrapBtcDestination={unwrapBtcDestination}
         onClick={() => setUnwrapStage(UnwrapStage.NotStart)}
         onClose={() => setUnwrapStage(UnwrapStage.NotStart)}

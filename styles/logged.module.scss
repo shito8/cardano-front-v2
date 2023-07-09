@@ -4,7 +4,7 @@
 
   @include var.btn-header();
   padding: 5px;
-  width: 200px;
+  width: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,7 +21,7 @@
     cursor: pointer;
     @include var.btn-header();
     background-color: var.$background-color-light;
-    width: 200px;
+    width: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,14 +30,14 @@
       }
   }
   @media (max-width: 700px){
-    width: 110px;
+    width: 120px;
     gap: 5px;
     height: 35px;
     p{
       font-size: 12px;
     }
     .disconnect{
-      width: 110px;
+      width: 120px;
       right: 57px;
       height: 35px;
       font-size: 14px;

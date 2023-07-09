@@ -19,10 +19,13 @@ const Wrap = () => {
     isLoading,
     wrapStage,
     setWrapStage,
+    networkFee,
   } = useWrap();
 
   const { walletMeta } = useCardanoWallet();
   const [isWalletShowing, setIsWalletShowing] = useState(false);
+
+  const [isHover, setIsHover] = useState(false);
 
   const [checkInput, setCheckInput] = useState<boolean>(false);
 
@@ -85,7 +88,26 @@ const Wrap = () => {
       </div>
       {/* fee */}
       <section className={styles.sectionFee}>
-        <p className={styles.title}>Bridge Fee ({wrapFeeBtc}%)</p>     
+        <div className={styles.bridge}>
+          <p className={styles.title}>Bridge Fee</p>
+          <div className={styles.tooltip} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+            <svg width="14" height="14" id='icon' className={styles.icon}>
+              <use href="/images/icons/question-circle.svg#icon"></use>
+            </svg>
+            {
+              isHover && (
+              <>
+                <div className={styles.tooltipContent}>
+                  <p>{wrapFeeBtc}% + 0.0005 BTC + estimated BTC network fee
+                  ({networkFee=== ""? " ... ": networkFee})</p>
+                </div>
+                <div className={styles.tooltipArrow}></div>
+              </>
+)
+            }  
+          </div>
+        </div>
+ 
         <div className={styles.token}>
           <p>{formatAmount(bridgeFee)}</p>
           <p>BTC</p>
@@ -96,7 +118,9 @@ const Wrap = () => {
       </section>
       {/* my receive amount  */}
       <section className={styles.sectionFee}>
-        <p className={styles.title}>You Will Receive</p>
+        <div className={styles.bridge}>
+          <p className={styles.title}>You Will Receive</p>
+        </div>
         <div className={styles.token}>
             <p>{formatAmount(btcToBeReceived)}</p>
             <p>cBTC</p>
@@ -144,7 +168,7 @@ const Wrap = () => {
       <DepositConfirmModal
         isOpen={wrapStage === WrapStage.Sent}
         amount={amount}
-        amountToReceive={btcToBeReceived.toString()}
+        amountToReceive={btcToBeReceived}
         onClick={() => setWrapStage(WrapStage.NotStarted)}
         onClose={() => setWrapStage(WrapStage.NotStarted)}
         resetAmount={()=>setAmount("")}

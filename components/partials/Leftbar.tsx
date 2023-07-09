@@ -16,7 +16,7 @@ const Leftbar = () => {
       <div className={styles.network}>
         {config.network !== CardanoNetwork.Mainnet ? (    
           <p>Testnet</p>
-          ) : null}
+          ) : <p>Mainnet</p>}
       </div>
         
       <div className={styles.navigationContainer}>           
@@ -26,7 +26,7 @@ const Leftbar = () => {
                 <svg width="20" height="20" className={styles.icon}>
                   <use href={item.icon}></use>
                 </svg>
-                <p>{item.name}</p>                  
+                <p className={styles.name}>{item.name}</p>                  
                   </Link>
                 </Fragment>
               ))}

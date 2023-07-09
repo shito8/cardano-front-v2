@@ -80,6 +80,15 @@
         font-weight: var.$font-weight-medium;
       }
     }
+    .link{
+      p{
+        border-radius: 6px;
+        &:hover{
+          color: var.$primary-color-dark;
+        }
+      }
+      
+    }
 
 
 
@@ -112,6 +121,14 @@
           border: 1px solid #787878;
           background-color: var.$background-color-dark;
       }
+      }
+      .link{
+        p{
+          &:hover{
+            color: var.$primary-color-light;
+          }
+        }
+        
       }
     }
 

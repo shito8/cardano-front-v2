@@ -38,6 +38,7 @@ export const GlobalContext = createContext<GlobalContextState>({
     wrapFeeBtc: 0,
     unwrapFeeBtc: 0,
     unwrapFeeCardano: 0,
+    cbtcAssetId: "",
   },
   setConfig: () => {},
 });
@@ -62,6 +63,7 @@ export default function GlobalContextProvider({
     wrapFeeBtc: 0,
     unwrapFeeBtc: 0,
     unwrapFeeCardano: 0,
+    cbtcAssetId: "",
   });
 
   const globalContext: GlobalContextState = {

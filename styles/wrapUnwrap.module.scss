@@ -149,10 +149,51 @@
     justify-content: space-between;
     height: 70px;
     padding: 0 20px;
-    .title{
-      font-weight: var.$font-weight-medium;
-      font-size: 18px;
+    .bridge{
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      .title{
+        font-weight: var.$font-weight-medium;
+        font-size: 18px;
+      }
+      .tooltip{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .icon{
+          cursor: pointer;
+        }
+        .tooltipContent{
+          position: absolute;
+          top: -95px;
+          background-color: var.$primary-color-light;
+          width: 180px;
+          height: 77px;
+          padding: 10px;
+          border-radius: 10px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          p{
+            text-align: center;
+            font-size: 14px;
+          }
+        }
+        .tooltipArrow{
+          position: absolute;
+          top: -20px;
+          width: 0; 
+          height: 0; 
+          border-top: 20px solid var.$primary-color-light;
+          border-right: 10px solid transparent;
+          border-left: 10px solid transparent;
+        }
+      }
     }
+
     .token{
       display: flex;
       align-items: center;
@@ -225,9 +266,11 @@
       justify-content: center;
       gap: 5px;
       align-items: flex-start;
-      .title{
-        margin: 0;
-        font-size: 16px;
+      .bridge{
+        .title{
+          margin: 0;
+          font-size: 16px;
+        }
       }
       .token{
         gap: 6px;
@@ -282,8 +325,10 @@
       }
       .sectionFee{
         padding: 0 10px;
-        .title{
-          font-size: 14px;
+        .bridge{
+          .title{
+            font-size: 14px;
+          }
         }
         .token{
           p{
@@ -322,6 +367,19 @@
         input{
           background-color: var.$secondary-color-dark;
           color: var.$secundary-color-font;
+        }
+      }
+    }
+    .sectionFee{
+      .bridge{
+        .tooltip{
+          .tooltipContent{
+            background-color: var.$dark-tooltip;
+          }
+          .tooltipArrow{
+            border-top: 20px solid var.$dark-tooltip;
+          }
+          
         }
       }
     }
