@@ -21,7 +21,7 @@ export default async function handler(
   //const url = `${blockfrostUrl}/assets/${assetId}`
   const url = "https://cardano-preprod.blockfrost.io/api/v0/assets/2c04fa26b36a376440b0615a7cdf1a0c2df061df89c8c055e265050563425443"
   const headers = {
-    project_id: BLOCKFROST_PROJECT_ID
+    project_id: `${process.env.BLOCKFROST_PROJECT_ID}`
     //project_id: "preprodZ5sdrHtIciQKn3Ls3phRfCkqtVyFq5XX"
   }
 
