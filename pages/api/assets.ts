@@ -4,6 +4,7 @@ import { BLOCKFROST_URL, CardanoNetwork } from "../../utils/api";
 const CARDANO_NETWORK = process.env.CARDANO_NETWORK;
 const BLOCKFROST_PROJECT_ID = process.env.BLOCKFROST_PROJECT_ID;
 const ASSET_ID = process.env.CBTC_ASSET_ID;
+const url = `${BLOCKFROST_URL[CARDANO_NETWORK as CardanoNetwork]}/assets/${ASSET_ID}`;
 
 
 
@@ -17,7 +18,7 @@ const values = (  req: NextApiRequest,
   
   res.status(200).json({
     projectId: BLOCKFROST_PROJECT_ID,
-    url: `${BLOCKFROST_URL[CARDANO_NETWORK as CardanoNetwork]}/assets/${ASSET_ID}`,
+    url: url,
   })
 }
 
