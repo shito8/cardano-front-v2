@@ -6,22 +6,6 @@ const BLOCKFROST_PROJECT_ID = process.env.BLOCKFROST_PROJECT_ID;
 const ASSET_ID = process.env.CBTC_ASSET_ID;
 const url = `${BLOCKFROST_URL[CARDANO_NETWORK as CardanoNetwork]}/assets/${ASSET_ID}`;
 
-
-
-/* const values = (  req: NextApiRequest,
-  res: NextApiResponse) => {
-    if (!CARDANO_NETWORK || !BLOCKFROST_PROJECT_ID || !ASSET_ID) {
-      return res
-        .status(500)
-        .send("Server is not setup properly. Missing .env file");
-    }
-  
-  res.status(200).json({
-    projectId: BLOCKFROST_PROJECT_ID,
-    url: url,
-  })
-} */
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

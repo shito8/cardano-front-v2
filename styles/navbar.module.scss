@@ -49,25 +49,6 @@
           &:after{
             left: 15px;
           }
-
-/*           margin-left: 60px;
-          color: rgba(255, 255, 255, 0.5);
-          display: flex;
-          font-size: 16px;
-          position: relative;
-          top: -7px;
-          right: 20px;
-          display: none;
-          &::before, &::after{
-              content: "";
-              position: absolute;
-          }
-          &::before{
-              left: -20px;
-          }
-          &::after{
-              left: 20px;
-          } */
         }
       }
     }
@@ -83,7 +64,7 @@
       background-color: var.$background-color-light;
       p{
         background-color: var.$primary-color-light;
-        font-weight: var.$font-weight-medium;
+        font-weight: var.$font-weight-semibold;
         width: 100%;
         height: 100%;
         display: flex;
