@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { BLOCKFROST_URL, CardanoNetwork } from "../../utils/api";
 
 const CARDANO_NETWORK = process.env.CARDANO_NETWORK;
-const BLOCKFROST_PROJECT_ID = `${process.env.BLOCKFROST_PROJECT_ID}`;
+const BLOCKFROST_PROJECT_ID = process.env.BLOCKFROST_PROJECT_ID;
 const ASSET_ID = process.env.CBTC_ASSET_ID;
 
 
