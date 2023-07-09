@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { BLOCKFROST_URL, CardanoNetwork } from "../../utils/api";
 
 const CARDANO_NETWORK = process.env.CARDANO_NETWORK;
-const BLOCKFROST_PROJECT_ID = process.env.BLOCKFROST_PROJECT_ID;
+const BLOCKFROST_PROJECT_ID = `${process.env.BLOCKFROST_PROJECT_ID}`;
 const ASSET_ID = process.env.CBTC_ASSET_ID;
 
 export default async function handler(
@@ -21,8 +21,8 @@ export default async function handler(
   //const url = `${blockfrostUrl}/assets/${assetId}`
   const url = "https://cardano-preprod.blockfrost.io/api/v0/assets/2c04fa26b36a376440b0615a7cdf1a0c2df061df89c8c055e265050563425443"
   const headers = {
-    //project_id: BLOCKFROST_PROJECT_ID
-    project_id: "preprodZ5sdrHtIciQKn3Ls3phRfCkqtVyFq5XX"
+    project_id: BLOCKFROST_PROJECT_ID
+    //project_id: "preprodZ5sdrHtIciQKn3Ls3phRfCkqtVyFq5XX"
   }
 
   try {
