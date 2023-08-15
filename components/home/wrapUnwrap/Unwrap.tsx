@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import useUnwrap, { UnwrapStage } from "../../../hooks/useUnwrap";
 import styles from "../../../styles/wrapUnwrap.module.scss"
 import UnwrapSuccessful from "./unwrap/UnwrapSuccessful";
@@ -7,6 +7,8 @@ import ConnectWallet from "../../partials/navbar/ConnectWallet";
 import { formatAmount, validInput } from "../../../utils/fortmat";
 import useFetchUtxo from "../../../hooks/useFetchUtxo";
 import { log } from "console";
+import useLucid from "../../../hooks/useLucid";
+import { GlobalContext } from "../../GlobalContext";
 
 const Unwrap = () => {
   const {
@@ -23,21 +25,18 @@ const Unwrap = () => {
     unwrapStage,
     setUnwrapStage,
     networkFee,
-    policeId,
+    policyId,
   } = useUnwrap();
 
   const [balance, setBalance] = useState<null|string>(null);
 
-  const { walletMeta, address } = useCardanoWallet();
-    const { utxos }= useFetchUtxo(address)
-    const balances = utxos[0]?.amount.find((utxo)=>utxo.unit===`${policeId}`)
+  const { config } = useContext(GlobalContext);
 
-    useEffect(() => {
-      if(address!=="" && balances){
-        setBalance(formatAmount(Number(balances?.quantity)/100000000))
-      }
-    },[address, balances?.quantity, balances])
+  const networkMainnet: boolean = config.network === "Mainnet";
 
+  const { walletMeta, address, walletAddress } = useCardanoWallet();
+   //const { utxos, error, loading }= useFetchUtxo(address)
+   const { getUtxos } = useLucid();
 
   const [isWalletShowing, setIsWalletShowing] = useState(false);
 
@@ -54,15 +53,50 @@ const Unwrap = () => {
     if (validInput(value)){
       setAmount(value);
     }
-
-    parseFloat(value)<0.001 ? setCheckInput(true) : setCheckInput(false)
+    if(networkMainnet){
+      parseFloat(value)<0.02 ? setCheckInput(true) : setCheckInput(false)
+    }else{
+      parseFloat(value)<0.001 ? setCheckInput(true) : setCheckInput(false)
+    }
+    
   }
+ 
+  const getBalance = async () => {
+    const utxos = await getUtxos();
+
+
+   let sumBalance = 0;
+
+      sumBalance = utxos.reduce((total, utxo) => {
+        const amountForUnit = Number (utxo.assets[policyId]) ?? 0;
+      
+        if (amountForUnit) {
+          const quantity = Number(amountForUnit);
+          total += quantity;
+        }
+        return total;
+      }, 0);
+      setBalance(formatAmount((sumBalance/100000000)))
+    };
+
+ 
+
+
+  useEffect(() => {
+      if(address!=="" ){
+        getBalance()
+      }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[address])
 
   useEffect(() => {
     if(balance){
-      parseFloat(amount)>parseFloat(balance) ? setCheckBalance(false) : setCheckBalance(true)
+      parseFloat(amount)>parseFloat(balance) ? setCheckBalance(false) : setCheckBalance(true);  
     }
-  },[amount, balance])
+    if(amount!== ""){
+      parseFloat(amount)>=(networkMainnet?0.02:0.001) ? setCheckInput(false) : setCheckInput(true);  
+    }
+  },[amount, balance, networkMainnet])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if(e.key === '+' || e.key === '-' || e.key === 'ArrowUp' || e.key === 'ArrowDown'){
@@ -72,6 +106,14 @@ const Unwrap = () => {
 
   const handleWhell = (e: WheelEvent) => {
     e.preventDefault();
+  }
+
+  const handleBalance = () => {
+    if(balance){
+      setAmount(balance);  
+    }else{
+      setAmount("")
+    }
   }
 
   useEffect(() => {
@@ -109,7 +151,7 @@ const Unwrap = () => {
           </div>
         </div>
         {
-          walletMeta && (
+          walletMeta && balance  &&(
             <div className={styles.balanceContainer}>
               {
                 checkBalance ? (
@@ -119,7 +161,11 @@ const Unwrap = () => {
             
             <div className={styles.balance}>
               <p className={styles.text}>Balance: {`${balance? balance: 0}`}</p>
-              <button className={styles.btn} onClick={()=>{setAmount(balance?balance:"")}}>Max</button>
+              {
+                balance !== amount && (
+                <button className={styles.btn} onClick={handleBalance}>Max</button>) 
+              }
+
             </div>
           </div>
           )
@@ -130,7 +176,7 @@ const Unwrap = () => {
             <svg width="14" height="14" id='icon' >
               <use href='/images/icons/exclamation-circle-fill.svg#icon'></use>
             </svg>
-            <p>You can redeem a minimum of 0.001 BTC.</p>
+            <p>You can redeem a minimum of {networkMainnet ? '0.02':'0.001'} BTC.</p>
           </div>
         ):(undefined)}
       </div>
@@ -149,7 +195,7 @@ const Unwrap = () => {
       {/* fee */}
       <div className={styles.sectionFee}>
         <div className={styles.bridge}>
-          <p className={styles.title}>Bridge Fee</p>
+          <p className={styles.title}>Bridge Fee (Estimated)</p>
           <div className={styles.tooltip} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
             <svg width="14" height="14" id='icon' className={styles.icon}>
               <use href="/images/icons/question-circle.svg#icon"></use>
@@ -158,7 +204,7 @@ const Unwrap = () => {
               isHover && (
               <>
                 <div className={styles.tooltipContent}>
-                <p>{networkFee=== ""? " ... ": 0.0005+Number(networkFee)} BTC + {unwrapFeeBtc}% of Total
+                <p>{networkFee=== ""? " ... ": formatAmount(0.0005+Number(networkFee))} BTC + {unwrapFeeBtc}% of Total
                   </p>
                 </div>
                 <div className={styles.tooltipArrow}></div>
@@ -180,7 +226,6 @@ const Unwrap = () => {
       {/* fee */}
       <div className={`${styles.sectionFee} ${styles.unwrapFee}`}>
         <div className={styles.token}>
-          <p>+</p>
           <p>{unwrapFeeCardano}</p>
           <p>ADA</p>
           <svg width="30" height="30" id='icon' >
@@ -204,11 +249,10 @@ const Unwrap = () => {
         </div>
       </div>
       {/* final button  */}
-
       {
         walletMeta ? (
           <button
-          disabled={!Boolean(amount)||checkInput||unwrapBtcDestination === ""||!checkBalance}
+          disabled={!Boolean(amount)||checkInput||unwrapBtcDestination === ""||!checkBalance||walletAddress === "Wrong Network"}
           onClick={unwrap}
           className={styles.wrapBtn}
         >
@@ -218,6 +262,8 @@ const Unwrap = () => {
               ? "Invalid amount"
               : unwrapBtcDestination === ""
               ? "Enter an address"
+              : walletAddress === "Wrong Network"
+              ? "Wrong Network"
               : "Unwrap cBTC"
             : "Enter an amount"}
         </button>

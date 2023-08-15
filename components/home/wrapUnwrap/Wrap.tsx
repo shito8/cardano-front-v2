@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import useWrap, { WrapStage } from "../../../hooks/useWrap";
 import styles from "../../../styles/wrapUnwrap.module.scss"
 import DepositConfirmModal from "./wrap/DepositConfirmModal";
@@ -6,6 +6,7 @@ import SendDepositModal from "./wrap/SendDepositModal";
 import useCardanoWallet from "../../../hooks/useCardanoWallet";
 import ConnectWallet from "../../partials/navbar/ConnectWallet";
 import { formatAmount, validInput } from "../../../utils/fortmat";
+import { GlobalContext } from "../../GlobalContext";
 
 const Wrap = () => {
   const {
@@ -20,14 +21,18 @@ const Wrap = () => {
     wrapStage,
     setWrapStage,
     networkFee,
+    feesRecommended
   } = useWrap();
 
-  const { walletMeta } = useCardanoWallet();
+  const { walletMeta, walletAddress } = useCardanoWallet();
   const [isWalletShowing, setIsWalletShowing] = useState(false);
 
   const [isHover, setIsHover] = useState(false);
 
   const [checkInput, setCheckInput] = useState<boolean>(false);
+
+  const { config } = useContext(GlobalContext);
+  const networkMainnet: boolean = config.network === "Mainnet";
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -37,7 +42,11 @@ const Wrap = () => {
     if (validInput(value)){
       setAmount(value);
     }
-    parseFloat(value)<0.001 ? setCheckInput(true) : setCheckInput(false)
+    if(networkMainnet){
+      parseFloat(value)<0.02 ? setCheckInput(true) : setCheckInput(false)
+    }else{
+      parseFloat(value)<0.001 ? setCheckInput(true) : setCheckInput(false)
+    }
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -85,14 +94,14 @@ const Wrap = () => {
             <svg width="14" height="14" id='icon' >
               <use href='/images/icons/exclamation-circle-fill.svg#icon'></use>
             </svg>
-            <p>You can mint a minimum of 0.001 BTC.</p>
+            <p>You can redeem a minimum of {networkMainnet ? '0.02':'0.001'} BTC.</p>
           </div>
         ):(undefined)}
       </div>
       {/* fee */}
       <section className={styles.sectionFee}>
         <div className={styles.bridge}>
-          <p className={styles.title}>Bridge Fee</p>
+          <p className={styles.title}>Bridge Fee (Estimated)</p>
           <div className={styles.tooltip} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
             <svg width="14" height="14" id='icon' className={styles.icon}>
               <use href="/images/icons/question-circle.svg#icon"></use>
@@ -101,7 +110,7 @@ const Wrap = () => {
               isHover && (
               <>
                 <div className={styles.tooltipContent}>
-                  <p>{networkFee=== ""? " ... ": 0.0005+Number(networkFee)} BTC + {wrapFeeBtc}% of Total
+                  <p>{networkFee=== ""? " ... ": formatAmount(0.0005+Number(networkFee))} BTC + {wrapFeeBtc}% of Total
                   </p>
                 </div>
                 <div className={styles.tooltipArrow}></div>
@@ -137,13 +146,16 @@ const Wrap = () => {
         walletMeta ? (
         
       <button
-        disabled={!Boolean(amount)||checkInput}
+        disabled={!Boolean(amount)||checkInput||walletAddress === "Wrong Network"}
         onClick={wrap}
         className={styles.wrapBtn}
       >
         {isLoading ? (<div className={styles.loader}></div>):(undefined)}
 
-        {amount ? (checkInput ? "Invalid amount" : "Wrap BTC") : "Enter an amount"}
+        {amount ? 
+          (checkInput ? "Invalid amount" : 
+            (walletAddress === "Wrong Network" ? "Wrong Network" : "Wrap BTC")) 
+          : "Enter an amount"}
       </button>
         ) : (
           <>
@@ -167,6 +179,7 @@ const Wrap = () => {
         wrapDepositAddress={wrapDepositAddress}
         onClick={() => setWrapStage(WrapStage.Sent)}
         onClose={() => setWrapStage(WrapStage.NotStarted)}
+        feesRecommended={feesRecommended}
       ></SendDepositModal>
       <DepositConfirmModal
         isOpen={wrapStage === WrapStage.Sent}

@@ -28,7 +28,7 @@ export default function useUnwrap() {
   const { tryWithErrorHandler } = useTryCatch();
   const { unwrap: lucidUnwrap } = useLucid();
 
-  const [policeId, setPoliceId] = useState("")
+  const [policyId, setPolicyId] = useState("")
   const [amount, setAmount] = useState<string>("");
   const [unwrapBtcDestination, setUnwrapBtcDestination] = useState("");
   const [bridgeFee, setBridgeFee] = useState(0);
@@ -41,7 +41,7 @@ export default function useUnwrap() {
 
   useEffect(() => {
     const fee = (unwrapFeeBtc / 100 * Number(amount) + 0.0005 + Number(networkFee));
-    setPoliceId(config.cbtcAssetId)
+    setPolicyId(config.cbtcAssetId)
     if(amount === ""){
       setBridgeFee(0)
       setBtcToBeReceived(0);
@@ -51,8 +51,14 @@ export default function useUnwrap() {
     }
   }, [unwrapFeeBtc, amount, networkFee, config.cbtcAssetId]);
 
-  const unwrap = async () => {
-    const validAdrres = validate(unwrapBtcDestination, 'BTC', 'testnet');
+  let validAdrres : any
+   const unwrap = async () => {
+    if(config.network === "Mainnet"){
+      validAdrres = validate(unwrapBtcDestination, 'BTC');
+    }else{
+      validAdrres = validate(unwrapBtcDestination, 'BTC', 'testnet');
+    }
+    
     await tryWithErrorHandler(async () => {
       setIsLoading(true);
       if (!validAdrres) {
@@ -61,7 +67,6 @@ export default function useUnwrap() {
           "Please enter a valid BTC Destination Address"
         );
       }
-
       await lucidUnwrap({
         burnAmount: Number(amount),
         btcAddress: unwrapBtcDestination,
@@ -91,6 +96,6 @@ export default function useUnwrap() {
     unwrapStage,
     setUnwrapStage,
     networkFee,
-    policeId,
+    policyId,
   };
 }
