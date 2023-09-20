@@ -1,3 +1,4 @@
+import ChartComponent from "../../components/dashboard/ChartComponent";
 import useDashboard from "../../hooks/useDashboard";
 import styles from "../../styles/dashboard.module.scss"
 
@@ -5,20 +6,18 @@ export default function Dashboard() {
   const { usdBtcPrice, usdcBtcPrice, adaBtcPrice, adacBtcPrice, dailyChangeBtcPrice } =
     useDashboard();
 
+
   return (
     <section className={styles.dashboardContainer}>
-{/*       Dashboard
-      <p>BTC: {usdBtcPrice}</p>
-      <p>cBTC: {usdcBtcPrice}</p>
-      <p>Ada BTC: {adaBtcPrice}</p>
-      <p>Ada cBTC: {adacBtcPrice}</p>
-      <p>Este es el símbolo de la moneda Dólar de Aruba: ₳</p>
-      <p>Daily Change: {dailyChangeBtcPrice}%</p> */}
       <div className={styles.sectionChart}>
         <div className={styles.chartTvl}>
-          <h2>TVL</h2>
-          <h3>BTC</h3>
-          <p>Fecha</p>
+          <div>
+            <h2>TVL</h2>
+            <h3>BTC</h3>
+            <p>Fecha</p>
+          </div>
+          <ChartComponent />
+
         </div>
         <div className={styles.sectionPrice}>
           <div className={styles.priceBtc}>

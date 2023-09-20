@@ -17,6 +17,9 @@
       border-radius: 24px;
       background-color: var.$background-color-light;
       padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .sectionPrice{
       display: flex;
@@ -91,6 +94,14 @@
   }
   @media (max-width: 633px){
     left: 5%;
+    .sectionChart{
+      .sectionPrice{
+        flex-direction: column;
+        .priceBtc, .pricecBtc{
+          width: 100%;
+        }
+      }
+    }
   }
 
 }
