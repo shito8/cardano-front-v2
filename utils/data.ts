@@ -188,7 +188,7 @@ export const data = [
       "cantidad": 15.6667
     },
     {
-      "fecha": "2023-09-18 23:00",
+      "fecha": "2023-09-24 23:00",
       "cantidad": 14.3333
     },
 ]

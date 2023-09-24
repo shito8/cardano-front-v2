@@ -4,10 +4,9 @@ import styles from "../../styles/chartComponent.module.scss"
 
 export default function ChartComponent() {
 
-
   return (
     <section className={styles.chartContainer} >
-      <ResponsiveContainer width="100%" height={150}>
+      <ResponsiveContainer width="100%" height={170}>
         <AreaChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id="colorAneta" x1="0" y1="0" x2="0" y2="1">
@@ -26,6 +25,11 @@ export default function ChartComponent() {
           />
         </AreaChart>
       </ResponsiveContainer>
+      <div className={styles.chartLegend}>
+        <p className={styles.legendTitle}>{data[0].fecha}</p>
+        <p className={styles.legendTitle}>{data[data.length/2].fecha}</p>
+        <p className={styles.legendTitle}>{data[data.length-1].fecha}</p>
+      </div>
     </section>
   );
 }
