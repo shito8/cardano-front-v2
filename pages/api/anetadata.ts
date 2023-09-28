@@ -11,9 +11,8 @@ export default async function handler(
     return res.status(405).end();
   }
   
-   const fetchResponse = await (
-    await fetch(`${URL}`, {})
-  ).json();
+  const fetchResponse = await fetch(URL, {});
+  const data = await fetchResponse.json();
 
-  res.status(200).send(fetchResponse);
+  res.status(200).send(data.data);
 }
